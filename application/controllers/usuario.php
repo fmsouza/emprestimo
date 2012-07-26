@@ -1,0 +1,30 @@
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+
+class Usuario extends CI_Controller{
+	
+	private $values;
+	
+	function __construct(){
+		parent::__construct();
+		$this->load->model('Usuario_model','usuario');
+	}
+	
+	public function novo(){
+		if($this->input->post('senha')==$this->input->post('csenha')){
+			$this->values = array();
+			foreach($this->input->post() as $key=>$value)
+				if($key!='csenha')
+					$this->values[$key] = $value;
+			
+			if($this->usuario->cadastrar($this->values))
+				$data['msg'] = "Cadastro realizado com sucesso!";
+			else
+				$data['msg'] = "Erro no cadastro. Tente novamente.";
+		}
+		else $data['msg'] = "As senhas não conferem.";
+		
+		$data['title'] = "Novo Usuário";
+		$data['page'] = "login";
+		$this->load->view('template',$data);
+	}
+}

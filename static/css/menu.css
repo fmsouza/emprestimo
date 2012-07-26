@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+#menu ul, #menu #sessioname{
+	list-style: none;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+}
+#menu li{
+	display: inline;
+	border-right: 1px solid #CFCFB4;
+	margin: 2px 10px 0 0;
+	padding: 10px 15px 10px 10px;
+	float: left;
+}
+
+#menu #sessioname{
+	margin-top: 2px;
+	padding: 10px 10px 10px 10px;
+	float: right;
+}

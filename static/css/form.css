@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+input{
+	border: 1px solid #aaa;
+}
+.button{
+	padding: 3px 10px 3px 10px;
+	border-radius: 3px;
+	background-color: #FFF;
+}
+.button:hover{
+	background-color:#C9E994;
+}
+#login{
+	width: 200px;
+}
+#login>ul{
+	list-style: none;
+}
+#login>ul>li{
+	display: inline;
+	font-size: 13px;
+}
+#login a{
+	color: #42453D;
+}
+#login a:hover{
+	color: #C9E994;
+}
+.validate{
+	color: #F00;
+	font-size: 10px;
+}
