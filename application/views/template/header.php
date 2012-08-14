@@ -17,14 +17,34 @@
 			<div id="header"></div>
 			<div id="menu">
 				<ul class="menu">
-					<li><a href="buscar/mapas">Mapas e Cartas</a></li>
-					<li><a href="buscar/teses">Teses e Artigos</a></li>
-					<li><a href="buscar/equipamentos">Equipamentos</a></li>
+					<li><a href="mapas">Mapas e Cartas</a></li>
+					<li><a href="teses">Teses, Livros e Artigos</a></li>
+					<li><a href="equipamentos">Equipamentos</a></li>
 				</ul>
-				<?php if(isset($this->session->userdata['logged'])): ?>
-				<span id="sessioname"><span id="name"><?php echo $this->session->userdata['userdata'][0]->nome; ?></span> - <a href="logoff">Sair</a></span>
-				<?php else: ?>
-				<span id="sessioname"><span id="name">Seja bem-vindo!</span></span>
-				<?php endif; ?>
+				<span id="sessioname">
+					<span id="name">
+					<?php if(isset($this->session->userdata['logged'])): ?>
+					<img src="static/images/downarrow.gif" /><?php echo $this->session->userdata['userdata'][0]->nome; ?>
+					</span> - <a href="logoff">Sair</a>
+					<div id="admin-menu">
+						<table>
+							<tr>
+								<td><b>Cadastros</b></td>
+							</tr>
+							<tr>
+								<td><a href="cadastro/mapas">Mapas e Cartas</a></td>
+							</tr>
+							<tr>
+								<td><a href="cadastro/teses">Teses e Artigos</a></td>
+							</tr>
+							<tr>
+								<td><a href="cadastro/equipamentos">Equipamentos</a></td>
+							</tr>
+						</table>
+					</div>
+					<?php else: ?>Seja bem-vindo!
+					<?php endif; ?>
+					</span>
+				</span>
 			</div>
 			<div id="content">

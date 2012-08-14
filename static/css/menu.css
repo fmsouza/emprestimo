@@ -18,3 +18,15 @@
 	padding: 10px 10px 10px 10px;
 	float: right;
 }
+
+#menu #sessioname #admin-menu{
+	border: 1px solid #A9AD94;
+	background-color: #E5E8D5;
+	font-weight: normal;
+	text-align: left;
+	width: 110px;
+	position: absolute;
+}
+#menu #sessioname #admin-menu tr:hover{
+	background-color: #A9AD94;
+}

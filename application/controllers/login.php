@@ -5,7 +5,7 @@ class Login extends CI_Controller{
 	public function index(){
 		if(!isset($this->session->userdata['logged'])){
 			$data['title'] = "Login";
-			$data['page'] = "login";
+			$data['page'] = "pages/login";
 			$this->load->view('template',$data);
 		}
 		else header("Location: home");
@@ -13,7 +13,7 @@ class Login extends CI_Controller{
 	
 	public function novo(){
 		$data['title'] = "Novo Usuário";
-		$data['page'] = "cadastro/usuario";
+		$data['page'] = "pages/cadastro/usuario";
 		$this->load->view('template',$data);
 	}
 	

@@ -46,5 +46,9 @@ $(document).ready(function principal(){
 	$("#dre").mask("999999999");
 	$("#siap").mask("99999999999");
 	
+	$("#admin-menu").hide();
+	$("#menu #sessioname #name").click(function(){
+		$("#admin-menu").toggle("fast");
+	});
 	
 });

@@ -38,10 +38,14 @@
 |
 */
 
-$route['default_controller'] = "home";
-$route['login'] = "login/index";
-$route['logoff'] = "login/off";
-$route['404_override'] = '';
+$route['default_controller'] = "pagina/index";
+$route['home']				 = "pagina/index";
+$route['mapas'] 			 = "pagina/mapas";
+$route['teses'] 			 = "pagina/teses";
+$route['equipamentos'] 		 = "pagina/equipamentos"; 
+$route['login'] 			 = "login/index";
+$route['logoff'] 			 = "login/off";
+$route['404_override'] 		 = '';
 
 
 /* End of file routes.php */
