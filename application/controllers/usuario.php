@@ -10,8 +10,20 @@ class Usuario extends CI_Controller{
 	}
 	
 	public function novo(){
+		/*
+		 * Compara os campos de senha e confirmação de senha. Caso sejam iguais, realiza o
+		 * cadastro do novo usuário.
+		 * 
+		 */
 		if($this->input->post('senha')==$this->input->post('csenha')){
 			$this->values = array();
+			/*
+			 *  TODO: remover esse foreach. É muito mais fácil remover a posição 'csenha' do
+			 *  array utilizando a função unset() embutida no PHP.
+			 *  
+			 *  http://php.net/manual/pt_BR/function.unset.php
+			 */
+			
 			foreach($this->input->post() as $key=>$value)
 				if($key!='csenha')
 					$this->values[$key] = $value;

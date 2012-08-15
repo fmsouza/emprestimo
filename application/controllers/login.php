@@ -3,6 +3,12 @@
 class Login extends CI_Controller{
 	
 	public function index(){
+		/*
+		 * Página inicial de login:
+		 * Verifica se há sessão de login criada e redireciona para a página com o formulário de
+		 * login caso não haja ou para a página interna caso positivo.
+		 * 
+		 */
 		if(!isset($this->session->userdata['logged'])){
 			$data['title'] = "Login";
 			$data['page'] = "pages/login";
@@ -12,12 +18,14 @@ class Login extends CI_Controller{
 	}
 	
 	public function novo(){
+		//Página que contém o formulário de cadastro de novo usuário
 		$data['title'] = "Novo Usuário";
 		$data['page'] = "pages/cadastro/usuario";
 		$this->load->view('template',$data);
 	}
 	
 	public function auth(){
+		//Faz a autenticação do usuário
 		$this->load->model("Usuario_model","usuario");
 		$user = $this->usuario->get_user($this->input->post());
 		if(empty($user))

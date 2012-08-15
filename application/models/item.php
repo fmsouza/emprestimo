@@ -8,7 +8,7 @@ class Item extends CI_Model{
 	 * 
 	 * */
 	
-	private $table = 'acervo_item'; //tabela que contém os dados do acervo
+	private $table = 'acervo_item'; //tabela que contém os dados do item no acervo
 	
 	function __construct(){
 		parent::__construct();
@@ -38,5 +38,5 @@ class Item extends CI_Model{
 	}
 }
 
-/* End of file categoria.php */
-/* Location: ./application/controllers/categoria.php */
+/* End of file item.php */
+/* Location: ./application/controllers/item.php */

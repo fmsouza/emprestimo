@@ -38,5 +38,5 @@ class Exemplar extends CI_Model{
 	}
 }
 
-/* End of file categoria.php */
-/* Location: ./application/controllers/categoria.php */
+/* End of file exemplar.php */
+/* Location: ./application/controllers/exemplar.php */
