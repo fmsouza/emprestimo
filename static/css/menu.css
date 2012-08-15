@@ -12,6 +12,9 @@
 	padding: 10px 15px 10px 10px;
 	float: left;
 }
+#menu li:hover{
+	background-color: #CFCFB4;
+}
 
 #menu #sessioname{
 	margin-top: 2px;
@@ -28,5 +31,5 @@
 	position: absolute;
 }
 #menu #sessioname #admin-menu tr:hover{
-	background-color: #A9AD94;
+	background-color: #CFCFB4;
 }

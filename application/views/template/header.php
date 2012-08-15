@@ -32,13 +32,16 @@
 								<td><b>Cadastros</b></td>
 							</tr>
 							<tr>
-								<td><a href="cadastro/mapas">Mapas e Cartas</a></td>
+								<td><a href="pagina/cadastro/categorias">Categorias</a></td>
 							</tr>
 							<tr>
-								<td><a href="cadastro/teses">Teses e Artigos</a></td>
+								<td><a href="pagina/cadastro/mapas">Mapas e Cartas</a></td>
 							</tr>
 							<tr>
-								<td><a href="cadastro/equipamentos">Equipamentos</a></td>
+								<td><a href="pagina/cadastro/teses">Teses e Artigos</a></td>
+							</tr>
+							<tr>
+								<td><a href="pagina/cadastro/equipamentos">Equipamentos</a></td>
 							</tr>
 						</table>
 					</div>

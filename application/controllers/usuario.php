@@ -24,7 +24,10 @@ class Usuario extends CI_Controller{
 		else $data['msg'] = "As senhas não conferem.";
 		
 		$data['title'] = "Novo Usuário";
-		$data['page'] = "login";
+		$data['page'] = "pages/login";
 		$this->load->view('template',$data);
 	}
 }
+
+/* End of file usuario.php */
+/* Location: ./application/controllers/usuario.php */
