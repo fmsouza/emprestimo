@@ -9,6 +9,7 @@
 		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.maskedinput-1.3.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/critiForm.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jqueryFunctions.js"></script>
         <base href="<?php echo base_url(); ?>" />
 	</head>

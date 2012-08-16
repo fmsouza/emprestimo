@@ -1,4 +1,4 @@
-<form method="post" action="cadastrar/mapas">
+<form method="post" action="cadastrar/mapas" id="cadastro_mapas">
 
 	<h1><?php if(isset($title)) echo $title; ?></h1>
 	
@@ -14,11 +14,11 @@
 		</tr>
 		<tr>
 			<td>Ano:</td>
-			<td><input type="text" name="ano" /></td>
+			<td><input type="text" name="ano" class="ano" /></td>
 		</tr>
 		<tr>
 			<td>Prazo do empréstimo(dias):</td>
-			<td><input type="text" name="prazo" /></td>
+			<td><input type="number" name="prazo" /></td>
 		</tr>
 		<tr>
 			<td>Valor(R$):</td>

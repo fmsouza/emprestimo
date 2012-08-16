@@ -1,4 +1,4 @@
-<form method="post" action="cadastrar/categoria">
+<form method="post" action="cadastrar/categoria" id="cadastro_categoria">
 
 	<h1><?php if(isset($title)) echo $title; ?></h1>
 	

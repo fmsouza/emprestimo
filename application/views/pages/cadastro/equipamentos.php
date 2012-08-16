@@ -1,4 +1,4 @@
-<form method="post" action="cadastrar/equipamentos">
+<form method="post" action="cadastrar/equipamentos" id="cadastro_equip">
 
 	<h1><?php if(isset($title)) echo $title; ?></h1>
 	
@@ -14,11 +14,11 @@
 		</tr>
 		<tr>
 			<td>Ano:</td>
-			<td><input type="text" name="ano" /></td>
+			<td><input type="text" name="ano" class="ano" /></td>
 		</tr>
 		<tr>
 			<td>Prazo do empréstimo(dias):</td>
-			<td><input type="text" name="prazo" /></td>
+			<td><input type="number" name="prazo" /></td>
 		</tr>
 		<tr>
 			<td>Valor(R$):</td>
@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td>N⁰ do Patrimônio:</td>
-			<td><input type="text" name="patrimonio" /></td>
+			<td><input type="text" name="patrimonio" class="number" /></td>
 		</tr>
 		<tr>
 			<td>Marca:</td>
@@ -34,7 +34,7 @@
 		</tr>
 		<tr>
 			<td>N⁰. registro IBGE:</td>
-			<td><input type="text" name="registro_ibge" /></td>
+			<td><input type="text" name="registro_ibge" class="number" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

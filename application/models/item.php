@@ -27,6 +27,14 @@ class Item extends CI_Model{
 			return false;
 	}
 	
+	public function insert_id(){
+		/*
+		 * Retorna o id do último registro inserido no banco logo após ser gravado.
+		 * 
+		 */
+		return $this->db->insert_id();
+	}
+	
 	public function get_item($id){
 		/*
 		 * Esse método recebe como parâmetro o id da categoria para que se possa buscar seus

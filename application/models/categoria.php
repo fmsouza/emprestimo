@@ -1,18 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Categoria extends CI_Model{
-	
 	/*
 	 * Esse modelo é responsável por todas as interações de dados de categoria entre o
 	 * banco e o sistema.
 	 * 
 	 * */
-	
 	private $table = 'acervo_categoria'; //tabela que contém os dados dos usuários
-	
-	function __construct(){
-		parent::__construct();
-	}
 	
 	public function save($data){
 		/*

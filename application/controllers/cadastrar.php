@@ -8,21 +8,15 @@ class Cadastrar extends CI_Controller{
 	 * 
 	 * */
 	
-	function __construct(){
-		$this->load->model('categoria');
-		$this->load->model('item');
-		$this->load->model('exemplar');
-		parent::__construct();
-	}
-	
 	public function categoria(){
 		/*
 		 * Este método recebe os dados do formulário do cadastro de Categorias, os armazena
 		 * em $this->values e então registra no banco de dados.
 		 * 
 		 * */
-		$_POST['id'] = $this->categoria->gera_id($this->input->post('titulo'));
+		$this->load->model('categoria'); //carrega o modelo de categoria
 		
+		$_POST['id'] = $this->categoria->gera_id($this->input->post('titulo'));
 		if($this->categoria->save($_POST))
 			$data['msg'] = "Cadastro realizado com sucesso!";
 		else
@@ -40,8 +34,9 @@ class Cadastrar extends CI_Controller{
 		 * 
 		 * */
 		$_POST['acervo_categoria_id'] = 'mec';
-		$this->inserir_item($_POST);
+		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/mapas';
+		$data['title'] = 'Cadastro - Mapas e Cartas';
 		$this->load->view('template',$data);
 	}
 	
@@ -52,8 +47,9 @@ class Cadastrar extends CI_Controller{
 		 * 
 		 * */
 		$_POST['acervo_categoria_id'] = 'tlea';
-		$this->inserir_item($_POST);
+		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/teses';
+		$data['title'] = 'Cadastro - Teses, Livros e Artigos';
 		$this->load->view('template',$data);
 	}
 	
@@ -64,8 +60,9 @@ class Cadastrar extends CI_Controller{
 		 * 
 		 * */
 		$_POST['acervo_categoria_id'] = 'equ';
-		$this->inserir_item($_POST);
+		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/equipamentos';
+		$data['title'] = 'Cadastro - Equipamentos';
 		$this->load->view('template',$data);
 	}
 	
@@ -76,10 +73,18 @@ class Cadastrar extends CI_Controller{
 		 * métodos dentro desta classe.
 		 * 
 		 */
-		if($this->item->save($dados))
-			$data['msg'] = "Cadastro realizado com sucesso!";
+		$this->load->model('item'); //Carrega o modelo de item
+		$this->load->model('exemplar'); //Carrega o modelo de exemplar
+		if($this->item->save($dados)){
+			$exemplar['acervo_categoria_id'] = $dados['acervo_categoria_id'];
+			$exemplar['acervo_item_id'] = $this->item->insert_id();
+			if($this->exemplar->save_first($exemplar))
+				return "Cadastro realizado com sucesso!";
+			else
+				return "Cadastro realizado, porém não foi possível cadastrar primeiro exemplar.";
+		}
 		else
-			$data['msg'] = "Erro no cadastro. Tente novamente.";
+			return "Erro no cadastro. Tente novamente.";
 	}
 }
 
