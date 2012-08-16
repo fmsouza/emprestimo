@@ -30,6 +30,10 @@
 	width: 110px;
 	position: absolute;
 }
+#menu #sessioname #admin-menu .divider{
+	background-color: #CFCFB4;
+	font-weight: bold;
+}
 #menu #sessioname #admin-menu tr:hover{
 	background-color: #CFCFB4;
 }
