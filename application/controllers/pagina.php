@@ -61,29 +61,74 @@ class Pagina extends CI_Controller {
 		 * 
 		 * */
 		$data['title'] = "Cadastro";
+		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
 			case "categorias":
-				$data['title'] .= " - Categorias";
-				$data['page'] = "pages/cadastro/categorias";
+				$data['title'] 	.= " - Categorias";
 				break;
 
 			case "mapas":
-				$data['title'] .= " - Mapas e Cartas";
-				$data['page'] = "pages/cadastro/mapas";
+				$data['title'] 	.= " - Mapas e Cartas";
 				break;
 			
 			case "teses":
-				$data['title'] .= " - Teses e Artigos";
-				$data['page'] = "pages/cadastro/teses";
+				$data['title'] 	.= " - Teses e Artigos";
 				break;
 			
 			case "equipamentos":
-				$data['title'] .= " - Equipamentos";
-				$data['page'] = "pages/cadastro/equipamentos";
+				$data['title'] 	.= " - Equipamentos";
 				break;
 			
 			default:
-				$data['page'] = "pages/internal/home";
+				$data['page']	 = "pages/internal/home";
+				break;
+		}
+		$this->load->view('template',$data);
+	}
+	
+	public function admin($setor){
+		/*
+		 * Carrega a tela de administração desejada. É passado como argumento o setor de administração desejado.
+		 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
+		 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
+		 * redirecionado para a página inicial.
+		 * 
+		 * */
+		$data['title'] = "Administração";
+		$data['page'] = "pages/".__FUNCTION__."/".$setor;
+		switch($setor){
+			case "usuarios":
+				$data['title'] 		.= " - Usuários";
+				$this->load->model('usuario_model','usuario');
+				$data['registro']	 = $this->usuario->get()->result();
+				break;
+				
+			case "categorias":
+				$data['title'] 	.= " - Categorias";
+				$this->load->model('categoria');
+				$data['registro']	 = $this->categoria->get()->result();
+				break;
+
+			case "mapas":
+				$data['title']	.= " - Mapas e Cartas";
+				$this->load->model('item');
+				$data['registro']	 = $this->item->mapas()->result();
+				break;
+			
+			case "teses":
+				$data['title'] 	.= " - Teses e Artigos";
+				$this->load->model('item');
+				$data['registro']	 = $this->item->teses()->result();
+				break;
+			
+			case "equipamentos":
+				$data['title'] 	.= " - Equipamentos";
+				$this->load->model('item');
+				$data['registro']	 = $this->item->equipamentos()->result();
+				break;
+			
+			default:
+				$data['page'] 	 = "pages/internal/home";
 				break;
 		}
 		$this->load->view('template',$data);

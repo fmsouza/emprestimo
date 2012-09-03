@@ -1,0 +1,42 @@
+<h1><?php if(isset($title)) echo $title; ?></h1>
+<br/>
+<?php if(isset($msg)): ?>
+<div class="msg"><?php echo $msg; ?></div>
+<?php endif; ?>
+
+<?php foreach($equipamento as $row):?>
+<table class="view">
+	<tr>
+		<th>Título:</th>
+		<td><?php echo $row->titulo; ?></td>
+	</tr>
+	<tr>
+		<th>Ano:</th>
+		<td><?php echo $row->ano; ?></td>
+	</tr>
+	<tr>
+		<th>Prazo de empréstimo(dias):</th>
+		<td><?php echo $row->prazo; ?></td>
+	</tr>
+	<tr>
+		<th>Valor(R$):</th>
+		<td><?php echo $row->valor; ?></td>
+	</tr>
+	<tr>
+		<th>Patrimônio:</th>
+		<td><?php echo $row->patrimonio; ?></td>
+	</tr>
+	<tr>
+		<th>Marca:</th>
+		<td><?php echo $row->marca; ?></td>
+	</tr>
+	<tr>
+		<th>Registro:</th>
+		<td><?php echo $row->registro; ?></td>
+	</tr>
+		<tr>
+			<td align="right"><a href="pagina/admin/equipamentos"><input type="button" class="button" value="Voltar" /></a></td>
+			<td><a href="editar/equipamento/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
+		</tr>
+</table>
+<?php endforeach; ?>

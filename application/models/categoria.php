@@ -7,6 +7,7 @@ class Categoria extends CI_Model{
 	 * 
 	 * */
 	private $table = 'acervo_categoria'; //tabela que contém os dados dos usuários
+	private $child = 'acervo_item';
 	
 	public function save($data){
 		/*
@@ -19,6 +20,39 @@ class Categoria extends CI_Model{
 			return true;
 		else
 			return false;
+	}
+	
+	public function editar($data){
+		/*
+		 * Esse método é semelhante ao save. Porém altera um registro ao invés de cadastrar um novo.
+		 */
+		$id = $data['id'];
+		unset($data['id']);
+		if($this->db->where('id',$id)->update($this->table,$data))
+			return true;
+		else
+			return false;
+	}
+	
+	public function apagar($id){
+		/*
+		 * Exclui um registro identificado pelo parâmetro ID na tabela configurada em $this->table.
+		 */
+		if($this->get_dependencies($id))
+			return false;
+		else{
+			if($this->db->delete($this->table,array('id' => $id)))
+				return true;
+			else
+				return false;
+		}
+	}
+	
+	public function get(){
+		/*
+		 * Esse método retorna todos os registros encontrados na tabela configurada em $this->table.
+		 */
+		return $this->db->get($this->table);
 	}
 	
 	public function gera_id($titulo){
@@ -47,6 +81,17 @@ class Categoria extends CI_Model{
 		 * */
 		$data['id'] = $id;
 		return $this->db->get_where($this->table,$data,1)->result();
+	}
+	
+	private function get_dependencies($id){
+		/*
+		 * Verifica se há algum registro associado cadastrado em alguma outra tabela.
+		 * Retorna TRUE caso haja e FALSE caso contrário.
+		 */
+		if($this->db->where(array('acervo_categoria_id' => $id))->get($this->child)->num_rows() > 0)
+			return true;
+		else
+			return false;
 	}
 }
 

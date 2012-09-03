@@ -33,8 +33,8 @@
 			<td><input type="text" name="marca" /></td>
 		</tr>
 		<tr>
-			<td>N⁰. registro IBGE:</td>
-			<td><input type="text" name="registro_ibge" class="number" /></td>
+			<td>N⁰. registro:</td>
+			<td><input type="text" name="registro" class="number" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

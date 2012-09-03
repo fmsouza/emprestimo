@@ -7,7 +7,7 @@
 				<span id="sessioname">
 					<span id="name">
 					<?php if(isset($this->session->userdata['logged'])): ?>
-					<img src="static/images/downarrow.gif" /><?php echo $this->session->userdata['userdata'][0]->nome; ?>
+					<img src="static/images/icons/downarrow.gif" /><?php echo $this->session->userdata['userdata'][0]->nome; ?>
 					</span> - <a href="logoff">Sair</a>
 					<div id="admin-menu">
 						<table>
@@ -30,16 +30,19 @@
 								<td class="divider">Administração</td>
 							</tr>
 							<tr>
-								<td><a href="#">Usuários</a></td>
+								<td><a href="pagina/admin/usuarios">Usuários</a></td>
 							</tr>
 							<tr>
-								<td><a href="#">Categorias</a></td>
+								<td><a href="pagina/admin/categorias">Categorias</a></td>
 							</tr>
 							<tr>
-								<td><a href="#">Mapas e Cartas</a></td>
+								<td><a href="pagina/admin/mapas">Mapas e Cartas</a></td>
 							</tr>
 							<tr>
-								<td><a href="#">Teses e Artigos</a></td>
+								<td><a href="pagina/admin/teses">Teses e Artigos</a></td>
+							</tr>
+							<tr>
+								<td><a href="pagina/admin/equipamentos">Equipamentos</a></td>
 							</tr>
 						</table>
 					</div>

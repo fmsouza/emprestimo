@@ -30,3 +30,17 @@ input{
 	color: #F00;
 	font-size: 10px;
 }
+.admin{
+	width: 600px;
+	text-align: center;
+}
+.admin th{
+	background-color: #CFCFB4;
+}
+.admin tr:hover{
+	background-color: #EBEADC;
+}
+.editar th, .view th{
+	text-align: left;
+	padding-right: 10px;
+}

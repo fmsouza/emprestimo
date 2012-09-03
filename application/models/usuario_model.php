@@ -10,10 +10,6 @@ class Usuario_model extends CI_Model{
 	
 	private $table = 'usuario'; //tabela que contém os dados dos usuários
 	
-	function __construct(){
-		parent::__construct();
-	}
-	
 	public function cadastrar($data){
 		/*
 		 * Esse método recebe como parâmetro os dados a serem inseridos no banco, já pareados
@@ -36,6 +32,35 @@ class Usuario_model extends CI_Model{
 		 * 
 		 * */
 		return $this->db->get_where($this->table,$data,1)->result();
+	}
+	
+	public function get(){
+		/*
+		 * Esse método retorna todos os registros encontrados na tabela configurada em $this->table.
+		 */
+		return $this->db->get($this->table);
+	}
+	
+	public function editar($data){
+		/*
+		 * Esse método é semelhante ao cadastrar. Porém altera um registro ao invés de cadastrar um novo.
+		 */
+		$cpf = $data['cpf'];
+		unset($data['cpf']);
+		if($this->db->where('cpf',$cpf)->update($this->table,$data))
+			return true;
+		else
+			return false;
+	}
+	
+	public function apagar($cpf){
+		/*
+		 * Exclui um registro identificado pelo parâmetro CPF na tabela configurada em $this->table.
+		 */
+		if($this->db->delete($this->table,array('cpf' => $cpf)))
+			return true;
+		else
+			return false;
 	}
 }
 

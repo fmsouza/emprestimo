@@ -2,8 +2,6 @@
 
 class Usuario extends CI_Controller{
 	
-	private $values;
-	
 	function __construct(){
 		parent::__construct();
 		$this->load->model('Usuario_model','usuario');
@@ -16,19 +14,8 @@ class Usuario extends CI_Controller{
 		 * 
 		 */
 		if($this->input->post('senha')==$this->input->post('csenha')){
-			$this->values = array();
-			/*
-			 *  TODO: remover esse foreach. É muito mais fácil remover a posição 'csenha' do
-			 *  array utilizando a função unset() embutida no PHP.
-			 *  
-			 *  http://php.net/manual/pt_BR/function.unset.php
-			 */
-			
-			foreach($this->input->post() as $key=>$value)
-				if($key!='csenha')
-					$this->values[$key] = $value;
-			
-			if($this->usuario->cadastrar($this->values))
+			unset($_POST['csenha']);
+			if($this->usuario->cadastrar($_POST))
 				$data['msg'] = "Cadastro realizado com sucesso!";
 			else
 				$data['msg'] = "Erro no cadastro. Tente novamente.";
@@ -37,6 +24,21 @@ class Usuario extends CI_Controller{
 		
 		$data['title'] = "Novo Usuário";
 		$data['page'] = "pages/login";
+		$this->load->view('template',$data);
+	}
+	
+	public function editar(){
+		/*
+		 * Atualiza os dados de um usuário e depois abre a página de exibição de dados.
+		 */
+		if($this->usuario->editar($_POST))
+			$data['msg'] = "Atualização realizado com sucesso!";
+		else
+			$data['msg'] = "Erro no cadastro. Tente novamente.";
+		
+		$data['usuario'] = $this->usuario->get_user(array('cpf' => $_POST['cpf']));
+		$data['title'] = "Exibir - Usuário";
+		$data['page'] = "pages/admin/exibir/usuario";
 		$this->load->view('template',$data);
 	}
 }

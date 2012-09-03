@@ -14,5 +14,9 @@ $(document).ready(function principal(){
 	$("#footer, #header, #content, .menu").click(function(){
 		$("#admin-menu").hide("fast");
 	});
+	$(".clean").click(function(){
+		var form = this.val("alt");
+		$("#"+form).reset();
+	});
 	
 });
