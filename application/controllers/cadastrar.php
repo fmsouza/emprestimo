@@ -2,6 +2,11 @@
 
 class Cadastrar extends CI_Controller{
 	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
+	
 	/*
 	 * Este é o controlador de cadastros. É responsável por realizar todas as operações de
 	 * interação com o banco de dados de cadastros do sistema.

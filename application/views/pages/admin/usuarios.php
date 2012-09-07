@@ -18,9 +18,9 @@
 		<td><a href="exibir/usuario/<?php echo $row->cpf;?>"><?php echo $row->nome;?></a></td>
 		<td><?php echo $row->profissao;?></td>
 		<td>
-			<a href="exibir/usuario/<?php echo $row->cpf;?>"><img src="static/images/icons/view.png" alt="exibir" title="Exibir" /></a>
+			<a href="exibir/usuario/<?php echo $row->cpf;?>"><img src="static/images/icons/view.gif" alt="exibir" title="Exibir" /></a>
 			<a href="editar/usuario/<?php echo $row->cpf;?>"><img src="static/images/icons/edit.gif" alt="editar" title="Editar" /></a>
-			<a href="apagar/usuario/<?php echo $row->cpf;?>"><img src="static/images/icons/delete.png" alt="apagar" onclick="return confirm('Tem certeza que deseja apagar esse registro?');" title="Apagar" /></a>
+			<a href="apagar/usuario/<?php echo $row->cpf;?>"><img src="static/images/icons/delete.gif" alt="apagar" onclick="return confirm('Tem certeza que deseja apagar esse registro?');" title="Apagar" /></a>
 		</td>
 	</tr>
 	<?php endforeach;?>

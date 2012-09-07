@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Usuario_model extends CI_Model{
+class Usuario extends CI_Model{
 	
 	/*
 	 * Esse modelo é responsável por todas as interações de dados de usuários entre o
@@ -61,6 +61,24 @@ class Usuario_model extends CI_Model{
 			return true;
 		else
 			return false;
+	}
+	
+	public function is_logged(){
+		/*
+		 * Redireciona o usuário para o local certo após verificar se ele está online ou não.
+		 */
+		if(!$this->logged()){
+			$data['title'] = "Login";
+			$data['page'] = "pages/login";
+			$this->load->view('template',$data);
+		}
+	}
+	
+	private function logged(){
+		/*
+		 * Verifica se o usuário está logado procurando sua sessão de login.
+		 */
+		return isset($this->session->userdata['logged']);
 	}
 }
 

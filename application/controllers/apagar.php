@@ -2,6 +2,11 @@
 
 class Apagar extends CI_Controller{
 	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
+	
 	/*
 	 * Esta classe controla as interações entre a requisição de exclusão de determinado registro e a sua
 	 * execução no banco de dados.

@@ -6,7 +6,7 @@
 <div class="msg"><?php echo $msg; ?></div>
 <?php endif; ?>
 
-<form class="cadastro" id="cadastro_usuario" action="usuario/novo" method="post">
+<form class="cadastro" id="cadastro_usuario" action="usuarios/novo" method="post">
 	<table>
 		<tr>
 			<td>CPF:</td>

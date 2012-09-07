@@ -15,8 +15,12 @@ $(document).ready(function principal(){
 		$("#admin-menu").hide("fast");
 	});
 	$(".clean").click(function(){
-		var form = this.val("alt");
+		var form = $(this).attr("alt");
 		$("#"+form).reset();
+	});
+	$(".search").focus(function(){
+		$(this).val("");
+		$(this).attr("style","color:#888");
 	});
 	
 });

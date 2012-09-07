@@ -2,6 +2,11 @@
 
 class Exibir extends CI_Controller{
 	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
+	
 	/*
 	 * Esta classe controla as páginas de exibição da administração de todos os cadastros.
 	 * São essas páginas que exibem os detalhes completos de cada item cadastrado na tabela de cada setor.

@@ -44,3 +44,12 @@ input{
 	text-align: left;
 	padding-right: 10px;
 }
+.search{
+	border: 1px solid eee;
+	height: 35px;
+	width: 70%;
+	border-radius: 20px;
+	padding-left: 10px;
+	font-size: 16px;
+	color: #ccc;
+}

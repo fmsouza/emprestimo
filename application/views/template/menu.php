@@ -46,7 +46,7 @@
 							</tr>
 						</table>
 					</div>
-					<?php else: ?>Seja bem-vindo!
+					<?php else: ?>Seja bem-vindo! - <a href="login">Login</a>
 					<?php endif; ?>
 					</span>
 				</span>

@@ -2,19 +2,16 @@
 
 class Login extends CI_Controller{
 	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
+	
 	public function index(){
-		/*
-		 * Página inicial de login:
-		 * Verifica se há sessão de login criada e redireciona para a página com o formulário de
-		 * login caso não haja ou para a página interna caso positivo.
-		 * 
-		 */
-		if(!isset($this->session->userdata['logged'])){
-			$data['title'] = "Login";
-			$data['page'] = "pages/login";
-			$this->load->view('template',$data);
-		}
-		else header("Location: home");
+		// Página inicial de login
+		$data['title'] = "Login";
+		$data['page'] = "pages/login";
+		$this->load->view('template',$data);
 	}
 	
 	public function novo(){

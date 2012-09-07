@@ -2,6 +2,11 @@
 
 class Editar extends CI_Controller{
 	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
+	
 	/*
 	 * Esta classe controla as páginas de alteração da administração de todos os cadastros.
 	 * São essas páginas que exibem os formulários completos de cada item cadastrado na tabela de cada setor.

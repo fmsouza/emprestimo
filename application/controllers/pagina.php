@@ -7,19 +7,17 @@ class Pagina extends CI_Controller {
 	 * definido em application/config/routes.php
 	 * 
 	 * */
+	
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+	}
 
 	public function index(){
-		/*
-		 * Carrega a página inicial. Caso exista uma sessão com os dados do usuário ativa, o usuário
-		 * poderá acessar o sistema. Caso contrário, ele será redirecionado para a tela de login.
-		 * 
-		 * */
-		if($this->session->userdata['logged']){
-			$data['title'] = "Início";
-			$data['page'] = "pages/internal/home";
-			$this->load->view('template',$data);
-		}
-		else header("Location: login");
+		// Carrega a página inicial.
+		$data['title'] = "Início";
+		$data['page'] = "pages/internal/home";
+		$this->load->view('template',$data);
 	}
 	
 	public function mapas(){

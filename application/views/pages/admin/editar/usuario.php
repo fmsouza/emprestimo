@@ -4,7 +4,7 @@
 
 <?php $usuario = (isset($usuario))? $usuario[0]:"";?>
 
-<form class="editar" id="editar_usuario" action="usuario/editar" method="post">
+<form class="editar" id="editar_usuario" action="usuarios/editar" method="post">
 	<input type="hidden" value="<?php echo $usuario->cpf;?>"name="cpf" />
 	<table>
 		<tr>
