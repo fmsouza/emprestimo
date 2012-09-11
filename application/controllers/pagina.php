@@ -10,43 +10,43 @@ class Pagina extends CI_Controller {
 	
 	function __construct(){
 		parent::__construct();
-		$this->usuario->is_logged();
+		$this->usuario->is_logged(); // Verifica se está logado ou não
 	}
 
 	public function index(){
 		// Carrega a página inicial.
-		$data['title'] = "Início";
-		$data['page'] = "pages/internal/home";
+		$data['title'] = "o que quiser";
+		$data['page'] = "pages/internal/pesquisa";
 		$this->load->view('template',$data);
 	}
 	
-	public function mapas(){
+	public function pesquisa($setor){
 		/*
-		 * Carrega a tela de consulta de Mapas e Cartas.
+		 * Carrega a tela de pesquisa desejada. É passado como argumento o setor de cadastro desejado.
+		 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
+		 * o usuário será redirecionado para a página da pesquisa que desejar. Caso contrário, será
+		 * redirecionado para a página inicial.
 		 * 
 		 * */
-		$data['title'] = "Mapas e Cartas";
-		$data['page'] = "pages/internal/mapas";
-		$this->load->view('template',$data);
-	}
-	
-	public function teses(){
-		/*
-		 * Carrega a tela de consulta de Teses, Livros e Artigos.
-		 * 
-		 * */
-		$data['title'] = "Teses, Livros e Artigos";
-		$data['page'] = "pages/internal/teses";
-		$this->load->view('template',$data);
-	}
-	
-	public function equipamentos(){
-		/*
-		 * Carrega a tela de consulta de Equipamentos.
-		 * 
-		 * */
-		$data['title'] = "Equipamentos";
-		$data['page'] = "pages/internal/equipamentos";
+		$data['page']  = "pages/internal/pesquisa";
+		$data['setor'] = $setor;
+		switch($setor){
+			case "mapas":
+				$data['title'] 	= "Mapas e Cartas";
+				break;
+			
+			case "teses":
+				$data['title'] 	= "Teses, Livros e Artigos";
+				break;
+			
+			case "equipamentos":
+				$data['title'] 	= "Equipamentos";
+				break;
+			
+			default:
+				header("Location: home");
+				break;
+		}
 		$this->load->view('template',$data);
 	}
 	
@@ -70,7 +70,7 @@ class Pagina extends CI_Controller {
 				break;
 			
 			case "teses":
-				$data['title'] 	.= " - Teses e Artigos";
+				$data['title'] 	.= " - Teses, Livros e Artigos";
 				break;
 			
 			case "equipamentos":
@@ -78,7 +78,7 @@ class Pagina extends CI_Controller {
 				break;
 			
 			default:
-				$data['page']	 = "pages/internal/home";
+				header("Location: home");
 				break;
 		}
 		$this->load->view('template',$data);
@@ -126,10 +126,40 @@ class Pagina extends CI_Controller {
 				break;
 			
 			default:
-				$data['page'] 	 = "pages/internal/home";
+				$data['page'] 	 = "pages/internal/pesquisa";
 				break;
 		}
 		$this->load->view('template',$data);
+	}
+	
+	public function buscar(){
+		/*
+		 * Método responsável pela realização da busca
+		 */
+		if($_POST){
+			$this->load->model('item');
+			$dados = $this->prepara_dados($_POST['pesquisa']);
+			$resultado = $this->db;
+			foreach($dados as $d){
+				if($d!=$dados[0]) $resultado->or_where('keywords','%'.$d.'%');
+				else $resultado->where('keywords','%'.$d.'%');
+			}
+			$data['rows'] = $this->item->get($resultado)->result();
+			$data['page'] = "pages/internal/pesquisa";
+			$this->load->view('template',$data);
+		}
+		else header("Location: home");
+	}
+	
+	private function prepara_dados($dados){
+		/*
+		 * Esse método faz todos os tratamentos necessários para usar os dados recuperados do campo de busca
+		 * do formulário para realizar a pesquisa
+		 */
+		$delimiters = array( "/" , "." , "," , "-" , "_" ); //delimitadores para remover da frase
+		
+		foreach($delimiters as $del) $dados = str_replace($del," ",$dados);
+		return explode(" ",$dados);
 	}
 }
 

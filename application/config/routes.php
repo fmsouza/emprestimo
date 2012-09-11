@@ -40,9 +40,10 @@
 
 $route['default_controller'] = "pagina/index";
 $route['home']				 = "pagina/index";
-$route['mapas'] 			 = "pagina/mapas";
-$route['teses'] 			 = "pagina/teses";
-$route['equipamentos'] 		 = "pagina/equipamentos"; 
+$route['mapas'] 			 = "pagina/pesquisa/mapas";
+$route['teses'] 			 = "pagina/pesquisa/teses";
+$route['equipamentos'] 		 = "pagina/pesquisa/equipamentos"; 
+$route['pesquisar'] 		 = "pagina/buscar"; 
 $route['login'] 			 = "login/index";
 $route['logoff'] 			 = "login/off";
 $route['404_override'] 		 = '';

@@ -72,6 +72,13 @@ class Item extends CI_Model{
 		}
 	}
 	
+	public function get($query){
+		/*
+		 * Esse método retorna todos os registros encontrados na tabela configurada em $this->table.
+		 */
+		return $query->get($this->table);
+	}
+	
 	public function mapas(){
 		/*
 		 * Esse método retorna todos os registros de mapas encontrados na tabela configurada em $this->table.

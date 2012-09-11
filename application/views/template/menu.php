@@ -12,6 +12,9 @@
 					<div id="admin-menu">
 						<table>
 							<tr>
+								<td><a href="home">Início</a></td>
+							</tr>
+							<tr>
 								<td class="divider">Cadastros</td>
 							</tr>
 							<tr>

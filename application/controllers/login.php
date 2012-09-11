@@ -2,12 +2,8 @@
 
 class Login extends CI_Controller{
 	
-	function __construct(){
-		parent::__construct();
-		$this->usuario->is_logged();
-	}
-	
 	public function index(){
+		$this->usuario->is_logged();
 		// Página inicial de login
 		$data['title'] = "Login";
 		$data['page'] = "pages/login";
@@ -23,7 +19,6 @@ class Login extends CI_Controller{
 	
 	public function auth(){
 		//Faz a autenticação do usuário
-		$this->load->model("Usuario_model","usuario");
 		$user = $this->usuario->get_user($this->input->post());
 		if(empty($user))
 			$data['msg'] = "Usuário ou senha inválidos.";
@@ -31,7 +26,7 @@ class Login extends CI_Controller{
 			//cria a sessão e redireciona pra página inicial do usuário logado
 			$this->session->set_userdata('logged',TRUE);
 			$this->session->set_userdata('userdata',$user);
-			header("Location: ../home");
+			header("Location: home");
 		}
 	}
 	
