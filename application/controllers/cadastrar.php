@@ -80,6 +80,7 @@ class Cadastrar extends CI_Controller{
 		 */
 		$this->load->model('item'); //Carrega o modelo de item
 		$this->load->model('exemplar'); //Carrega o modelo de exemplar
+		$dados['keywords'] = $this->item->keywords($dados); //Gera os dados das keywords
 		if($this->item->save($dados)){
 			$exemplar['acervo_categoria_id'] = $dados['acervo_categoria_id'];
 			$exemplar['acervo_item_id'] = $this->item->insert_id();

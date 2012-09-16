@@ -79,6 +79,23 @@ class Item extends CI_Model{
 		return $query->get($this->table);
 	}
 	
+	public function keywords($dados){
+		/*
+		 * Esse método retorna uma concatenação separada por vírgula de todos os dados presente no cadastro
+		 */
+		$string=NULL;
+		foreach($dados as $data){
+			if(!empty($data)){
+				$data = str_replace('.', ',', $data);
+				$data = str_replace('-', ',', $data);
+				$data = str_replace('_', ',', $data);
+				$data = str_replace(' ', ',', $data);
+				$string.= $data.',';
+			}
+		}
+		return substr($string,0,-1);
+	}
+	
 	public function mapas(){
 		/*
 		 * Esse método retorna todos os registros de mapas encontrados na tabela configurada em $this->table.

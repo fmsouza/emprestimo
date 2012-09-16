@@ -53,6 +53,7 @@ class Editar extends CI_Controller{
 		 */
 		$this->load->model('item');
 		if($_POST){
+			$_POST['keywords'] = $this->item->keywords($_POST); //Gera os dados das keywords
 			if($this->item->editar($_POST))
 				$data['msg'] = "Atualização realizado com sucesso!";
 			else
@@ -76,6 +77,7 @@ class Editar extends CI_Controller{
 		 */
 		$this->load->model('item');
 		if($_POST){
+			$_POST['keywords'] = $this->item->keywords($_POST); //Gera os dados das keywords
 			if($this->item->editar($_POST))
 				$data['msg'] = "Atualização realizado com sucesso!";
 			else
@@ -99,6 +101,7 @@ class Editar extends CI_Controller{
 		 */
 		$this->load->model('item');
 		if($_POST){
+			$_POST['keywords'] = $this->item->keywords($_POST); //Gera os dados das keywords
 			if($this->item->editar($_POST))
 				$data['msg'] = "Atualização realizado com sucesso!";
 			else

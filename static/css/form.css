@@ -30,21 +30,21 @@ input{
 	color: #F00;
 	font-size: 10px;
 }
-.admin{
+.admin, .results{
 	width: 600px;
 	text-align: center;
 }
-.admin th{
+.admin th, .results th{
 	background-color: #CFCFB4;
 }
-.admin tr:hover{
+.admin tr:hover, .results tr:hover{
 	background-color: #EBEADC;
 }
 .editar th, .view th{
 	text-align: left;
 	padding-right: 10px;
 }
-.search{
+.search, .searched{
 	border: 1px solid eee;
 	height: 35px;
 	width: 70%;
@@ -52,4 +52,8 @@ input{
 	padding-left: 10px;
 	font-size: 16px;
 	color: #ccc;
+	margin-bottom: 30px;
+}
+.searched{
+	color: #888;
 }

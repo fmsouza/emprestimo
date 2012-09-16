@@ -136,14 +136,16 @@ class Pagina extends CI_Controller {
 		/*
 		 * Método responsável pela realização da busca
 		 */
-		if($_POST){
+		if($_POST && !empty($_POST['pesquisa'])){
 			$this->load->model('item');
 			$dados = $this->prepara_dados($_POST['pesquisa']);
 			$resultado = $this->db;
 			foreach($dados as $d){
-				if($d!=$dados[0]) $resultado->or_where('keywords','%'.$d.'%');
-				else $resultado->where('keywords','%'.$d.'%');
+				if($d!=$dados[0]) $resultado->or_where('keywords LIKE','%'.$d.'%');
+				else $resultado->where('keywords LIKE','%'.$d.'%');
 			}
+			$data['pesquisa'] = $_POST['pesquisa'];
+			$data['num_rows'] = $this->item->get(clone $resultado)->num_rows;
 			$data['rows'] = $this->item->get($resultado)->result();
 			$data['page'] = "pages/internal/pesquisa";
 			$this->load->view('template',$data);

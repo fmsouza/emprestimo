@@ -26,7 +26,7 @@ class Login extends CI_Controller{
 			//cria a sessão e redireciona pra página inicial do usuário logado
 			$this->session->set_userdata('logged',TRUE);
 			$this->session->set_userdata('userdata',$user);
-			header("Location: home");
+			header("Location: ../home");
 		}
 	}
 	

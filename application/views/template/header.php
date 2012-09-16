@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"> 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Geocart - Empréstimos - <?php echo $title; ?></title>
+		<title>Geocart - Empréstimos <?php if(isset($title)) echo "- ".$title; ?></title>
 		<link rel="stylesheet" href="<?php echo base_url(); ?>static/css/main.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>static/css/menu.css" />
 		<link rel="stylesheet" href="<?php echo base_url(); ?>static/css/form.css" />
-		<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.validate.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/jquery.maskedinput-1.3.min.js"></script>
 		<script type="text/javascript" src="<?php echo base_url(); ?>static/js/critiForm.js"></script>
