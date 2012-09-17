@@ -42,50 +42,18 @@ class Apagar extends CI_Controller{
 		}
 	}
 	
-	public function mapa($id){
+	public function item($setor,$id){
 		/*
 		 * Apaga registro de mapa ou carta. Recebe como parâmetro o ID para realizar a busca.
 		 */
 		$this->load->model('item');
 		if($this->item->apagar($id))
-			redirect("pagina/admin/mapas");
+			redirect("pagina/admin/".$setor);
 		else{
 			$data['msg'] = "Não foi possível apagar o registro.";
-			$data['registro'] = $this->item->mapas()->result();
-			$data['title'] = "Administração - Mapas e Cartas";
-			$data['page'] = "pages/admin/mapas";
-			$this->load->view('template',$data);
-		}
-	}
-	
-	public function tese($id){
-		/*
-		 * Apaga registro de tese, livro ou artigo. Recebe como parâmetro o ID para realizar a busca.
-		 */
-		$this->load->model('item');
-		if($this->item->apagar($id))
-			redirect("pagina/admin/teses");
-		else{
-			$data['msg'] = "Não foi possível apagar o registro.";
-			$data['registro'] = $this->item->teses()->result();
-			$data['title'] = "Administração - Teses, Livros e Artigos";
-			$data['page'] = "pages/admin/teses";
-			$this->load->view('template',$data);
-		}
-	}
-	
-	public function equipamento($id){
-		/*
-		 * Apaga registro de equipamentos. Recebe como parâmetro o ID para realizar a busca.
-		 */
-		$this->load->model('item');
-		if($this->item->apagar($id))
-			redirect("pagina/admin/equipamentos");
-		else{
-			$data['msg'] = "Não foi possível apagar o registro.";
-			$data['registro'] = $this->item->equipamentos()->result();
-			$data['title'] = "Administração - Equipamento";
-			$data['page'] = "pages/admin/equipamentos";
+			$data['registro'] = $this->item->{$setor}()->result();
+			$data['title'] = "Administração - ".$this->item->title_setor(substr($setor,0,-1));
+			$data['page'] = "pages/admin/".$setor;
 			$this->load->view('template',$data);
 		}
 	}

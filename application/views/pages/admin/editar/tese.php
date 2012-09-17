@@ -2,7 +2,7 @@
 <br/>
 <?php $tese = (isset($tese))? $tese[0]:"";?>
 
-<form class="editar" id="editar_tese" action="editar/tese/<?php echo $tese->id;?>" method="post">
+<form class="editar" id="editar_tese" action="editar/item/tese/<?php echo $tese->id;?>" method="post">
 	<input type="hidden" value="<?php echo $tese->id;?>" name="id" />
 	<table>
 		<tr>

@@ -96,6 +96,15 @@ class Item extends CI_Model{
 		return substr($string,0,-1);
 	}
 	
+	public function title_setor($name){
+		$setor = array(
+			'mapa'			=> 'Mapas e Cartas',
+			'tese'			=> 'Teses, Livros e Artigos',
+			'equipamento'	=> 'Equipamentos',
+		);
+		return $setor[$name];
+	}
+	
 	public function mapas(){
 		/*
 		 * Esse método retorna todos os registros de mapas encontrados na tabela configurada em $this->table.

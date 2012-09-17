@@ -2,7 +2,7 @@
 <br/>
 <?php $mapa = (isset($mapa))? $mapa[0]:"";?>
 
-<form class="editar" id="editar_mapa" action="editar/mapa/<?php echo $mapa->id;?>" method="post">
+<form class="editar" id="editar_mapa" action="editar/item/mapa/<?php echo $mapa->id;?>" method="post">
 	<input type="hidden" value="<?php echo $mapa->id;?>" name="id" />
 	<table>
 		<tr>

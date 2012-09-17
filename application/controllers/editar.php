@@ -46,9 +46,10 @@ class Editar extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
-	public function mapa($id){
+	public function item($setor,$id){
 		/*
-		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.
+		 * Carrega a página de exibição de dados de qualquer categoria de item. Recebe como parâmetro o ID para
+		 * realizar a busca.
 		 * Caso receba conteúdo pelo $_POST, realiza uma atualização nos registros.
 		 */
 		$this->load->model('item');
@@ -59,62 +60,15 @@ class Editar extends CI_Controller{
 			else
 				$data['msg'] = "Erro no cadastro. Tente novamente.";
 			
+			$page = 'exibir';
 			$data['title'] 	 = "Exibir - Mapas e Cartas";
 			$data['page'] 	 = "pages/admin/exibir/mapa";
 		}
-		else{
-			$data['title'] 	 = "Editar - Mapas e Cartas";
-			$data['page'] 	 = "pages/admin/editar/mapa";
-		}
-		$data['mapa'] 		 = $this->item->get_item($id);
-		$this->load->view('template',$data);
-	}
-	
-	public function tese($id){
-		/*
-		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.
-		 * Caso receba conteúdo pelo $_POST, realiza uma atualização nos registros.
-		 */
-		$this->load->model('item');
-		if($_POST){
-			$_POST['keywords'] = $this->item->keywords($_POST); //Gera os dados das keywords
-			if($this->item->editar($_POST))
-				$data['msg'] = "Atualização realizado com sucesso!";
-			else
-				$data['msg'] = "Erro no cadastro. Tente novamente.";
-			
-			$data['title'] 	 = "Exibir - Teses, Livros e Artigos";
-			$data['page'] 	 = "pages/admin/exibir/tese";
-		}
-		else{
-			$data['title'] 	 = "Editar - Teses, Livros e Artigos";
-			$data['page'] 	 = "pages/admin/editar/tese";
-		}
-		$data['tese'] 		 = $this->item->get_item($id);
-		$this->load->view('template',$data);
-	}
-	
-	public function equipamento($id){
-		/*
-		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.
-		 * Caso receba conteúdo pelo $_POST, realiza uma atualização nos registros.
-		 */
-		$this->load->model('item');
-		if($_POST){
-			$_POST['keywords'] = $this->item->keywords($_POST); //Gera os dados das keywords
-			if($this->item->editar($_POST))
-				$data['msg'] = "Atualização realizado com sucesso!";
-			else
-				$data['msg'] = "Erro no cadastro. Tente novamente.";
-			
-			$data['title'] 	 = "Exibir - Equipamentos";
-			$data['page'] 	 = "pages/admin/exibir/equipamento";
-		}
-		else{
-			$data['title'] 	 = "Editar - Equipamentos";
-			$data['page'] 	 = "pages/admin/editar/equipamento";
-		}
-		$data['equipamento'] = $this->item->get_item($id);
+		else $page = 'editar';
+		
+		$data['title'] 	 = ucfirst($page).' - '.$this->item->title_setor($setor);
+		$data['page'] 	 = "pages/admin/".$page."/mapa";
+		$data['mapa'] 	 = $this->item->get_item($id);
 		$this->load->view('template',$data);
 	}
 }

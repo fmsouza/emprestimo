@@ -2,7 +2,7 @@
 <br/>
 <?php $equipamento = (isset($equipamento))? $equipamento[0]:"";?>
 
-<form class="editar" id="editar_equipamento" action="editar/equipamento/<?php echo $equipamento->id;?>" method="post">
+<form class="editar" id="editar_equipamento" action="editar/item/equipamento/<?php echo $equipamento->id;?>" method="post">
 	<input type="hidden" value="<?php echo $equipamento->id;?>" name="id" />
 	<table>
 		<tr>

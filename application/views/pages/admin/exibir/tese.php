@@ -32,7 +32,7 @@
 	</tr>
 		<tr>
 			<td align="right"><a href="pagina/admin/teses"><input type="button" class="button" value="Voltar" /></a></td>
-			<td><a href="editar/tese/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
+			<td><a href="editar/item/tese/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
 		</tr>
 </table>
 <?php endforeach; ?>

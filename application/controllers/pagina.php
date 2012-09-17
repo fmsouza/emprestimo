@@ -144,6 +144,11 @@ class Pagina extends CI_Controller {
 				if($d!=$dados[0]) $resultado->or_where('keywords LIKE','%'.$d.'%');
 				else $resultado->where('keywords LIKE','%'.$d.'%');
 			}
+			if(isset($_POST['setor'])) $setor = $_POST['setor']; 
+			if(isset($setor)){
+				$resultado->where('acervo_categoria_id',$this->setor($setor));
+				$data['setor'] = $setor;
+			}
 			$data['pesquisa'] = $_POST['pesquisa'];
 			$data['num_rows'] = $this->item->get(clone $resultado)->num_rows;
 			$data['rows'] = $this->item->get($resultado)->result();
@@ -162,6 +167,18 @@ class Pagina extends CI_Controller {
 		
 		foreach($delimiters as $del) $dados = str_replace($del," ",$dados);
 		return explode(" ",$dados);
+	}
+	
+	private function setor($name){
+		/*
+		 * Retorna o valor do setor na tabela
+		 */
+		$setor = array(
+			'mapas' 		=> 'mec',
+			'teses' 		=> 'tlea',
+			'equipamentos'	=> 'equ'
+		);
+		return $setor[$name];
 	}
 }
 

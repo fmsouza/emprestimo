@@ -18,9 +18,9 @@
 		<td><a href="exibir/mapa/<?php echo $row->id;?>"><?php echo $row->titulo;?></a></td>
 		<td><?php echo $row->ano;?></td>
 		<td>
-			<a href="exibir/mapa/<?php echo $row->id;?>"><img src="static/images/icons/view.gif" alt="exibir" title="Exibir" /></a>
-			<a href="editar/mapa/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="editar" title="Editar" /></a>
-			<a href="apagar/mapa/<?php echo $row->id;?>"><img src="static/images/icons/delete.gif" alt="apagar" onclick="return confirm('Tem certeza que deseja apagar esse registro?');" title="Apagar" /></a>
+			<a href="exibir/item/mapa/<?php echo $row->id;?>"><img src="static/images/icons/view.gif" alt="exibir" title="Exibir" /></a>
+			<a href="editar/item/mapa/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="editar" title="Editar" /></a>
+			<a href="apagar/item/mapas/<?php echo $row->id;?>"><img src="static/images/icons/delete.gif" alt="apagar" onclick="return confirm('Tem certeza que deseja apagar esse registro?');" title="Apagar" /></a>
 		</td>
 	</tr>
 	<?php endforeach;?>

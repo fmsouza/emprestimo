@@ -34,36 +34,14 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
-	public function mapa($id){
+	public function item($setor,$id){
 		/*
 		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.
 		 */
 		$this->load->model('item');
-		$data['mapa'] 		= $this->item->get_item($id);
-		$data['title'] 		= "Exibir - Mapas e Cartas";
-		$data['page'] 		= "pages/admin/exibir/mapa";
-		$this->load->view('template',$data);
-	}
-	
-	public function tese($id){
-		/*
-		 * Carrega a página de exibição de dados de teses, livros e artigos. Recebe como parâmetro o ID para realizar a busca.
-		 */
-		$this->load->model('item');
-		$data['tese'] 		= $this->item->get_item($id);
-		$data['title'] 		= "Exibir - Teses, Livros e Artigos";
-		$data['page'] 		= "pages/admin/exibir/tese";
-		$this->load->view('template',$data);
-	}
-	
-	public function equipamento($id){
-		/*
-		 * Carrega a página de exibição de dados de equipamentos. Recebe como parâmetro o ID para realizar a busca.
-		 */
-		$this->load->model('item');
-		$data['equipamento'] = $this->item->get_item($id);
-		$data['title'] 		 = "Exibir - Equipamentos";
-		$data['page'] 		 = "pages/admin/exibir/equipamento";
+		$data[$setor] 		= $this->item->get_item($id);
+		$data['title'] 		= "Exibir - .".$this->item->title_setor($setor);
+		$data['page'] 		= "pages/admin/exibir/".$setor;
 		$this->load->view('template',$data);
 	}
 }

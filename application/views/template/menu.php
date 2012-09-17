@@ -1,5 +1,6 @@
 			<div id="menu">
 				<ul class="menu">
+					<li><a href="home">Busca Geral</a></li>
 					<li><a href="mapas">Mapas e Cartas</a></li>
 					<li><a href="teses">Teses, Livros e Artigos</a></li>
 					<li><a href="equipamentos">Equipamentos</a></li>

@@ -36,7 +36,7 @@
 	</tr>
 		<tr>
 			<td align="right"><a href="pagina/admin/equipamentos"><input type="button" class="button" value="Voltar" /></a></td>
-			<td><a href="editar/equipamento/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
+			<td><a href="editar/item/equipamento/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
 		</tr>
 </table>
 <?php endforeach; ?>

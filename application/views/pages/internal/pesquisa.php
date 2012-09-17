@@ -1,17 +1,13 @@
 <?php
 	$class = 'search';
-	if(isset($pesquisa)){
-		$valor = $pesquisa;
-		$class = 'searched';
-	}
+	if(isset($pesquisa)){ $valor = $pesquisa; $class = 'searched'; }
 	elseif(isset($title)) $valor = 'Busque '.$title.' aqui...';
 	else $valor = 'Busque aqui...';
-
 ?>
 
 <form name="pesquisar" id="pesquisar" action="pesquisar" method="post">
 	<?php if(isset($setor)):?>
-	<input type="hidden" name="setor" value="<?php echo $setor?>" />
+	<input type="hidden" name="setor" value="<?php echo $setor; ?>" />
 	<?php endif; ?>
 	<input type="text" value="<?php echo $valor;?>" class="<?php echo $class; ?>" name="pesquisa" />
 </form>
