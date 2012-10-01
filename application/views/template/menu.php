@@ -34,6 +34,9 @@
 								<td class="divider">Administração</td>
 							</tr>
 							<tr>
+								<td><a href="pagina/admin/permissoes">Tipos de Usuário</a></td>
+							</tr>
+							<tr>
 								<td><a href="pagina/admin/usuarios">Usuários</a></td>
 							</tr>
 							<tr>

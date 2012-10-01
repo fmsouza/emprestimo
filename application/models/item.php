@@ -22,6 +22,7 @@ class Item extends CI_Model{
 		 * no banco. Caso os dados sejam inseridos, retorna TRUE. Caso contrário, retorna FALSE.
 		 * 
 		 * */
+		
 		if($this->db->insert($this->table,$data))
 			return true;
 		else

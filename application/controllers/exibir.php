@@ -23,6 +23,17 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	public function permissao($id){
+		/*
+		 * Carrega a página de exibição de dados de tipo de usuário. Recebe como parâmetro o CPF para realizar a busca.
+		 */
+		$this->load->model('Nivel_usuario','nivel');
+		$data['nivel'] 	= $this->nivel->get_nivel(array('id' => $id));
+		$data['title'] 		= "Exibir - Tipo de Usuário";
+		$data['page'] 		= "pages/admin/exibir/permissao";
+		$this->load->view('template',$data);
+	}
+	
 	public function categoria($id){
 		/*
 		 * Carrega a página de exibição de dados de categoria. Recebe como parâmetro o ID para realizar a busca.

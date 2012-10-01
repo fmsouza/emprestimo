@@ -1,4 +1,4 @@
-$(document).ready(function principal(){
+$(document).ready(function criticize(){
 	
 	$("#cadastro_usuario").validate({
 		rules:{
@@ -38,15 +38,6 @@ $(document).ready(function principal(){
 				minlength: "<span class='validate'>Sua senha deve ter, no mínimo, 6 caracteres</span>",
 				equalTo: "<span class='validate'>Senhas não conferem</span>"
 			}
-		}
-	});
-	
-	$("#cadastro_categoria").validate({
-		rules:{
-			titulo: "required"
-		},
-		messages{
-			titulo: "<span class='validate'>Preencha o título corretamente</span>"
 		}
 	});
 	
@@ -104,5 +95,6 @@ $(document).ready(function principal(){
 			patrimonio: "<span class='validate'>Digite o número da patrimônio</span>",
 			marca: "<span class='validate'>Digite o nome da marca</span>",
 			registro_ibge: "<span class='validate'>Digite o número do registro no IBGE</span>"
+		}
 	});
 });

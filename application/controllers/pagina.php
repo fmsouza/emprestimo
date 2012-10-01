@@ -101,6 +101,12 @@ class Pagina extends CI_Controller {
 				$data['registro']	 = $this->usuario->get()->result();
 				break;
 				
+			case "permissoes":
+				$data['title'] 	.= " - Tipos de Usuário";
+				$this->load->model('nivel_usuario','nivel');
+				$data['registro']	 = $this->nivel->get()->result();
+				break;
+				
 			case "categorias":
 				$data['title'] 	.= " - Categorias";
 				$this->load->model('categoria');

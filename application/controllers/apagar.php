@@ -44,7 +44,7 @@ class Apagar extends CI_Controller{
 	
 	public function item($setor,$id){
 		/*
-		 * Apaga registro de mapa ou carta. Recebe como parâmetro o ID para realizar a busca.
+		 * Apaga registro de qualquer item. Recebe como parâmetros o setor e o ID para realizar a busca.
 		 */
 		$this->load->model('item');
 		if($this->item->apagar($id))
