@@ -7,6 +7,16 @@ class Nivel_usuario extends CI_Model{
 	 * banco e o sistema.
 	 * 
 	 * */
+	private $values = array(
+		'nome' => '',
+		'ver_usuario' => 0,
+		'editar_usuario' => 0,
+		'apagar_usuario' => 0,
+		'editar_acervo' => 0,
+		'apagar_acervo' => 0,
+		'deferir_emprestimo' => 0,
+		'cancelar_emprestimo' => 0
+	);
 	
 	private $table = 'nivel_usuario'; //tabela que contém os dados dos usuários
 	
@@ -47,10 +57,18 @@ class Nivel_usuario extends CI_Model{
 		 */
 		$id = $data['id'];
 		unset($data['id']);
-		if($this->db->where('id',$id)->update($this->table,$data))
+		foreach($data as $key => $value){
+			if($key!='nome') $this->values[$key] = ($value=='on')? 1:0;
+			else $this->values[$key] = $value;
+		}
+		if($this->db->where('id',$id)->update($this->table,$this->values))
 			return true;
 		else
 			return false;
+	}
+	
+	public function getNivel($setor){
+		return $this->session->userdata['userdata'][0]->nivel->$setor;
 	}
 	
 	public function apagar($id){
@@ -64,5 +82,5 @@ class Nivel_usuario extends CI_Model{
 	}
 }
 
-/* End of file nivel_model.php */
-/* Location: ./application/models/nivel_model.php */
+/* End of file nivel_usuario.php */
+/* Location: ./application/models/nivel_usuario.php */

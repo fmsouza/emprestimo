@@ -31,6 +31,9 @@
 								<td><a href="pagina/cadastro/equipamentos">Equipamentos</a></td>
 							</tr>
 							<tr>
+								<td><a href="pagina/cadastro/permissoes">Tipos de Usuário</a></td>
+							</tr>
+							<tr>
 								<td class="divider">Administração</td>
 							</tr>
 							<tr>

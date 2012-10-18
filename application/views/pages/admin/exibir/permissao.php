@@ -11,6 +11,10 @@
 		<td><?php echo $row->nome; ?></td>
 	</tr>
 	<tr>
+		<th>Ver usuário:</th>
+		<td><input type="checkbox" <?php if($row->ver_usuario) echo 'checked="checked"'; ?> disabled="disabled" /></td>
+	</tr>
+	<tr>
 		<th>Editar usuário:</th>
 		<td><input type="checkbox" <?php if($row->editar_usuario) echo 'checked="checked"'; ?> disabled="disabled" /></td>
 	</tr>

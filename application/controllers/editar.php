@@ -27,9 +27,22 @@ class Editar extends CI_Controller{
 		 * Carrega a página de alteração de dados de tipo de usuário. Recebe como parâmetro o ID para realizar a busca.
 		 */
 		$this->load->model('nivel_usuario','nivel');
+		
+		if($_POST){
+			if($this->nivel->editar($_POST))
+				$data['msg'] 	= "Atualização realizado com sucesso!";
+			else
+				$data['msg']	= "Erro no cadastro. Tente novamente.";
+			
+			$data['title']		= "Exibir - Tipo de Usuário";
+			$data['page'] 		= "pages/admin/exibir/permissao";
+		}
+		else{
+			$data['title'] 		= "Editar - Tipo de Usuário";
+			$data['page'] 		= "pages/admin/editar/permissao";
+		}
 		$data['nivel'] 	= $this->nivel->get_nivel(array('id' => $id));
 		$data['title'] 		= "Editar - Tipo de usuário";
-		$data['page'] 		= "pages/admin/editar/permissao";
 		$this->load->view('template',$data);
 	}
 	

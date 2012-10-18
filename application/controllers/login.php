@@ -24,6 +24,8 @@ class Login extends CI_Controller{
 			$data['msg'] = "Usuário ou senha inválidos.";
 		else{
 			//cria a sessão e redireciona pra página inicial do usuário logado
+			$nivel = $this->nivel_usuario->get_nivel(array('id'=>$user[0]->nivel_usuario_id));
+			$user[0]->nivel = $nivel[0];
 			$this->session->set_userdata('logged',TRUE);
 			$this->session->set_userdata('userdata',$user);
 			header("Location: ../home");

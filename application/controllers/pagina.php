@@ -77,6 +77,11 @@ class Pagina extends CI_Controller {
 				$data['title'] 	.= " - Equipamentos";
 				break;
 			
+			case "permissoes":
+				$data['title'] 	.= " - Tipos de usuário";
+				break;
+			
+			
 			default:
 				header("Location: home");
 				break;

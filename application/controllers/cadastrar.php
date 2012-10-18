@@ -92,6 +92,24 @@ class Cadastrar extends CI_Controller{
 		else
 			return "Erro no cadastro. Tente novamente.";
 	}
+	
+	public function permissao(){
+		/*
+		 * Este método recebe os dados do formulário do cadastro de Tipos de Usuário e então registra
+		 * no banco de dados.
+		 * 
+		 * */
+		$this->load->model('nivel_usuario','nivel'); //carrega o modelo de nível
+		
+		if($this->nivel->cadastrar($_POST))
+			$data['msg'] = "Cadastro realizado com sucesso!";
+		else
+			$data['msg'] = "Erro no cadastro. Tente novamente.";
+
+		$data['page'] = 'pages/cadastro/permissoes';
+		$data['title'] = 'Cadastro - Tipos de Usuário';
+		$this->load->view('template',$data);
+	}
 }
 
 /* End of file cadastrar.php */
