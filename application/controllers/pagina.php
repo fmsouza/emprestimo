@@ -8,6 +8,12 @@ class Pagina extends CI_Controller {
 	 * 
 	 * */
 	
+	private $setor = array(
+			'mapas' 		=> 'mec',
+			'teses' 		=> 'tlea',
+			'equipamentos'	=> 'equ'
+		);
+	
 	function __construct(){
 		parent::__construct();
 		$this->usuario->is_logged(); // Verifica se está logado ou não
@@ -62,22 +68,27 @@ class Pagina extends CI_Controller {
 		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
 			case "categorias":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Categorias";
 				break;
 
 			case "mapas":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Mapas e Cartas";
 				break;
 			
 			case "teses":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Teses, Livros e Artigos";
 				break;
 			
 			case "equipamentos":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Equipamentos";
 				break;
 			
 			case "permissoes":
+				$this->nivel_usuario->verify_access('editar_usuario');
 				$data['title'] 	.= " - Tipos de usuário";
 				break;
 			
@@ -101,36 +112,41 @@ class Pagina extends CI_Controller {
 		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
 			case "usuarios":
+				$this->nivel_usuario->verify_access('editar_usuario');
 				$data['title'] 		.= " - Usuários";
 				$this->load->model('usuario_model','usuario');
 				$data['registro']	 = $this->usuario->get()->result();
 				break;
 				
 			case "permissoes":
+				$this->nivel_usuario->verify_access('editar_usuario');
 				$data['title'] 	.= " - Tipos de Usuário";
-				$this->load->model('nivel_usuario','nivel');
-				$data['registro']	 = $this->nivel->get()->result();
+				$data['registro']	 = $this->nivel_usuario->get()->result();
 				break;
 				
 			case "categorias":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Categorias";
 				$this->load->model('categoria');
 				$data['registro']	 = $this->categoria->get()->result();
 				break;
 
 			case "mapas":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title']	.= " - Mapas e Cartas";
 				$this->load->model('item');
 				$data['registro']	 = $this->item->mapas()->result();
 				break;
 			
 			case "teses":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Teses e Artigos";
 				$this->load->model('item');
 				$data['registro']	 = $this->item->teses()->result();
 				break;
 			
 			case "equipamentos":
+				$this->nivel_usuario->verify_access('editar_categoria');
 				$data['title'] 	.= " - Equipamentos";
 				$this->load->model('item');
 				$data['registro']	 = $this->item->equipamentos()->result();
@@ -140,6 +156,15 @@ class Pagina extends CI_Controller {
 				$data['page'] 	 = "pages/internal/pesquisa";
 				break;
 		}
+		$this->load->view('template',$data);
+	}
+	
+	public function visualizar($id){
+		$this->load->model('item');
+		$row = $this->item->get_item($id);
+		$data['row'] = $row[0];
+		$data['title'] = 'Visualizar Item';
+		$data['page'] = 'pages/internal/visualizar';
 		$this->load->view('template',$data);
 	}
 	
@@ -163,6 +188,7 @@ class Pagina extends CI_Controller {
 			$data['pesquisa'] = $_POST['pesquisa'];
 			$data['num_rows'] = $this->item->get(clone $resultado)->num_rows;
 			$data['rows'] = $this->item->get($resultado)->result();
+			$data['row_link'] = 'pagina/visualizar/';
 			$data['page'] = "pages/internal/pesquisa";
 			$this->load->view('template',$data);
 		}
@@ -184,12 +210,7 @@ class Pagina extends CI_Controller {
 		/*
 		 * Retorna o valor do setor na tabela
 		 */
-		$setor = array(
-			'mapas' 		=> 'mec',
-			'teses' 		=> 'tlea',
-			'equipamentos'	=> 'equ'
-		);
-		return $setor[$name];
+		return $this->setor[$name];
 	}
 }
 

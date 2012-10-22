@@ -18,6 +18,7 @@
 							<tr>
 								<td class="divider">Cadastros</td>
 							</tr>
+							<?php if($this->nivel_usuario->getNivel('editar_categoria')):?>
 							<tr>
 								<td><a href="pagina/cadastro/categorias">Categorias</a></td>
 							</tr>
@@ -30,18 +31,26 @@
 							<tr>
 								<td><a href="pagina/cadastro/equipamentos">Equipamentos</a></td>
 							</tr>
+							<?php endif;?>
+							<?php if($this->nivel_usuario->getNivel('editar_usuario')):?>
 							<tr>
 								<td><a href="pagina/cadastro/permissoes">Tipos de Usuário</a></td>
 							</tr>
+							<?php endif;?>
 							<tr>
 								<td class="divider">Administração</td>
 							</tr>
+							<?php if($this->nivel_usuario->getNivel('editar_usuario')):?>
 							<tr>
 								<td><a href="pagina/admin/permissoes">Tipos de Usuário</a></td>
 							</tr>
+							<?php endif;?>
+							<?php if($this->nivel_usuario->getNivel('ver_usuario')):?>
 							<tr>
 								<td><a href="pagina/admin/usuarios">Usuários</a></td>
 							</tr>
+							<?php endif;?>
+							<?php if($this->nivel_usuario->getNivel('ver_categoria')):?>
 							<tr>
 								<td><a href="pagina/admin/categorias">Categorias</a></td>
 							</tr>
@@ -54,6 +63,12 @@
 							<tr>
 								<td><a href="pagina/admin/equipamentos">Equipamentos</a></td>
 							</tr>
+							<?php endif;?>
+							<?php if($this->nivel_usuario->getNivel('deferir_emprestimo')):?>
+							<tr>
+								<td><a href="pagina/admin/emprestimos">Empréstimos</a></td>
+							</tr>
+							<?php endif;?>
 						</table>
 					</div>
 					<?php else: ?>Seja bem-vindo! - <a href="login">Login</a>

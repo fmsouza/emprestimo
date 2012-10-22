@@ -23,6 +23,14 @@
 		<td><input type="checkbox" <?php if($row->apagar_usuario) echo 'checked="checked"'; ?> disabled="disabled" /></td>
 	</tr>
 	<tr>
+		<th>Ver categoria:</th>
+		<td><input type="checkbox" <?php if($row->ver_categoria) echo 'checked="checked"'; ?> disabled="disabled" /></td>
+	</tr>
+	<tr>
+		<th>Editar categoria:</th>
+		<td><input type="checkbox" <?php if($row->editar_categoria) echo 'checked="checked"'; ?> disabled="disabled" /></td>
+	</tr>
+	<tr>
 		<th>Editar acervo:</th>
 		<td><input type="checkbox" <?php if($row->editar_acervo) echo 'checked="checked"'; ?> disabled="disabled" /></td>
 	</tr>

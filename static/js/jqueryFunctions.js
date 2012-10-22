@@ -6,6 +6,7 @@ $(document).ready(function principal(){
 	$("#siap").mask("99999999999");
 	$(".ano").mask("9999");
 	$(".number").mask("999999999");
+	$(".date").mask("99/99/9999").datepicker({ dateFormat: 'dd/mm/yy' });
 	
 	$("#admin-menu").hide();
 	$("#menu #sessioname #name").click(function(){

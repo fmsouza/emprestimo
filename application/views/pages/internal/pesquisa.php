@@ -22,13 +22,12 @@
 		<th>Marca</th>
 	</tr>
 <?php foreach($rows as $row): ?>
-<?php $link = "#";?>
 	<tr>
-			<td><a href="<?php echo $link;?>"><?php echo $row->titulo; ?></a></td>
-			<td><a href="<?php echo $link;?>"><?php echo $row->ano; ?></a></td>
-			<td><a href="<?php echo $link;?>"><?php echo $row->editora; ?></a></td>
-			<td><a href="<?php echo $link;?>"><?php echo $row->autor; ?></a></td>
-			<td><a href="<?php echo $link;?>"><?php echo $row->marca; ?></a></td>
+			<td><a href="<?php echo $row_link.$row->id;?>"><?php echo $row->titulo; ?></a></td>
+			<td><a href="<?php echo $row_link.$row->id;?>"><?php echo $row->ano; ?></a></td>
+			<td><a href="<?php echo $row_link.$row->id;?>"><?php echo $row->editora; ?></a></td>
+			<td><a href="<?php echo $row_link.$row->id;?>"><?php echo $row->autor; ?></a></td>
+			<td><a href="<?php echo $row_link.$row->id;?>"><?php echo $row->marca; ?></a></td>
 	</tr>
 <?php endforeach; ?>
 </table>

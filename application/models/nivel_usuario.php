@@ -11,6 +11,8 @@ class Nivel_usuario extends CI_Model{
 		'nome' => '',
 		'ver_usuario' => 0,
 		'editar_usuario' => 0,
+		'ver_categoria' => 0,
+		'editar_categoria' => 0,
 		'apagar_usuario' => 0,
 		'editar_acervo' => 0,
 		'apagar_acervo' => 0,
@@ -68,7 +70,11 @@ class Nivel_usuario extends CI_Model{
 	}
 	
 	public function getNivel($setor){
-		return $this->session->userdata['userdata'][0]->nivel->$setor;
+		return ($this->session->userdata['userdata'][0]->nivel->$setor)==1;
+	}
+	
+	public function verify_access($param){
+		if(!$this->getNivel($param)) header("Location: home");
 	}
 	
 	public function apagar($id){

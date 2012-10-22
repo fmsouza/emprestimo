@@ -24,6 +24,14 @@
 			<td><input type="checkbox" name="apagar_usuario" <?php if($nivel->apagar_usuario) echo 'checked="checked"'; ?> /></td>
 		</tr>
 		<tr>
+			<th>Ver categoria:</th>
+			<td><input type="checkbox" name="ver_categoria" <?php if($nivel->ver_categoria) echo 'checked="checked"'; ?> /></td>
+		</tr>
+		<tr>
+			<th>Editar categoria:</th>
+			<td><input type="checkbox" name="editar_categoria" <?php if($nivel->editar_categoria) echo 'checked="checked"'; ?> /></td>
+		</tr>
+		<tr>
 			<th>Editar acervo:</th>
 			<td><input type="checkbox" name="editar_acervo" <?php if($nivel->editar_acervo) echo 'checked="checked"'; ?> /></td>
 		</tr>

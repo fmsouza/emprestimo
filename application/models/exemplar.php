@@ -36,6 +36,11 @@ class Exemplar extends CI_Model{
 		return $this->db->get_where($this->table,$data,1)->result();
 	}
 	
+	public function getExemplares($cod){
+		$data['codigo LIKE '] = $cod."%";
+		return $this->db->get_where($this->table,$data)->result();
+	}
+	
 	private function fill_zero($number,$n) {
 		/*
 		 * Parâmetros: int $number, $n
