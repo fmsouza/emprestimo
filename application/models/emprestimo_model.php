@@ -13,4 +13,8 @@ class Emprestimo_model extends CI_Model{
 		return ($this->db->get_where($this->table['formulario'], $data)->result())? TRUE:FALSE;
 	}
 	
+	public function save($data){
+		return ($this->db->insert($this->table['formulario'], $data);
+	}
+	
 }

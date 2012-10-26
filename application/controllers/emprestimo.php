@@ -14,11 +14,23 @@ class Emprestimo extends CI_Controller{
 		 * Exibe uma tela com um calendário para selecionar a data de empréstimo e a de devolução.
 		 */
 		$this->load->model('item');
-		$row = $this->item->get_item($id);
+		$this->load->model('finalidade');
+		$row = $this->item->get_item($codigo);
+		$data['finalidades'] = $this->finalidade->get();
 		$data['row'] = $row[0];
 		$data['title'] = 'Item - Reservar Data';
-		$data['page'] = 'pages/internal/reservar';
+		$data['page'] = 'pages/emprestimo/solicitar';
 		$this->load->view('template',$data);
+	}
+	
+	public function requerer(){
+		$_POST['user'] = $this->session->userdata['userdata'][0];
+		$this->load->model('emprestimo_model','emprestimo');
+		$data['msg'] = ($this->emprestimo->save($_POST))? 'Empréstimo solicitado com sucesso!';'Não foi possível realizar a solicitação';
+		$data['title'] = 'Solicitação de empréstimo';
+		$data['page'] = 'pages/emprestimo/comprovante';
+		$data['row'] = $_POST;
+		$this->load->view('template',$data);	
 	}
 	
 	public function algo(){
