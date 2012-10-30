@@ -30,14 +30,14 @@
 		<tr>
 			<th>Finalidade:</th>
 			<td>
-				<select name="finalidade">
+				<select name="emprestimo_finalidade_id">
 					<?php foreach($finalidades as $finalidade) echo "<option value='{$finalidade->id}'>{$finalidade->titulo}</option>\n\t\t\t\t\t"; ?>
 				</select>
 			</td>
 		</tr>
 	
 		<tr>
-			<td><input type="hidden" name="codigo" value="<?php echo $row->acervo_categoria_id.$row->id; ?>" /></td>
+			<td><input type="hidden" name="acervo_exemplar_codigo" value="<?php echo $row->acervo_categoria_id.$row->id; ?>" /></td>
 			<td style="padding-top: 20px;" colspan="2" align="center"><input type="submit" class="button" value="Solicitar" /></td>
 		</tr>
 	</table>

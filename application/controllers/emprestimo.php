@@ -26,7 +26,7 @@ class Emprestimo extends CI_Controller{
 	public function requerer(){
 		$_POST['user'] = $this->session->userdata['userdata'][0];
 		$this->load->model('emprestimo_model','emprestimo');
-		$data['msg'] = ($this->emprestimo->save($_POST))? 'Empréstimo solicitado com sucesso!';'Não foi possível realizar a solicitação';
+		$data['msg'] = ($this->emprestimo->save($_POST))? 'Empréstimo solicitado com sucesso!':'Não foi possível realizar a solicitação';
 		$data['title'] = 'Solicitação de empréstimo';
 		$data['page'] = 'pages/emprestimo/comprovante';
 		$data['row'] = $_POST;
@@ -44,14 +44,10 @@ class Emprestimo extends CI_Controller{
 				$exemplaresDisponiveis--;
 		}
 		
-		if($exemplaresDisponiveis>0){
+		if($exemplaresDisponiveis>0)
 			echo $exemplaresDisponiveis;
-		}
-		else{
+		else
 			$data['msg'] = "Não há exemplares disponíveis.";
-		}
-		
-		
 	}
 	
 }

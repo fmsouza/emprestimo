@@ -14,7 +14,16 @@ class Emprestimo_model extends CI_Model{
 	}
 	
 	public function save($data){
-		return ($this->db->insert($this->table['formulario'], $data);
+		$data['usuario_cpf'] = $data['user']->cpf;
+		unset($data['user']);
+		$data['data_emprestimo'] = $this->prepareDate($data['data_emprestimo']);
+		$data['data_devolucao'] = $this->prepareDate($data['data_devolucao']);
+		return ($this->db->insert($this->table['formulario'], $data));
+	}
+	
+	private function prepareDate($date){
+		$date = explode("/",$date);
+		return "{$date[2]}-{$date[1]}-{$date[0]}";
 	}
 	
 }

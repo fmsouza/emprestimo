@@ -20,7 +20,7 @@ $(document).ready(function criticize(){
 				equalTo: "#senha"
 			}
 		},
-		messages: {
+		messages:{
 			cpf: "<span class='validate'>Digite seu CPF corretamente</span>",
 			nome: "<span class='validate'>Digite seu nome corretamente</span>",
 			identidade: "<span class='validate'>Digite sua identidade corretamente</span>",
@@ -49,7 +49,7 @@ $(document).ready(function criticize(){
 			valor: "required",
 			autor: "required"
 		},
-		messages{
+		messages:{
 			titulo: "<span class='validate'>Digite o título corretamente</span>",
 			ano: "<span class='validate'>Digite o ano corretamente</span>",
 			prazo: "<span class='validate'>Preencha o prazo corretamente</span>",
@@ -67,7 +67,7 @@ $(document).ready(function criticize(){
 			valor: "required",
 			autor: "required"
 		},
-		messages{
+		messages:{
 			titulo: "<span class='validate'>Digite o título corretamente</span>",
 			ano: "<span class='validate'>Digite o ano corretamente</span>",
 			editora: "<span class='validate'>Digite o nome da editora</span>",
@@ -87,7 +87,7 @@ $(document).ready(function criticize(){
 			marca: "required",
 			registro_ibge: "required"
 		},
-		messages{
+		messages:{
 			titulo: "<span class='validate'>Digite o título corretamente</span>",
 			ano: "<span class='validate'>Digite o ano corretamente</span>",
 			prazo: "<span class='validate'>Preencha o prazo corretamente</span>",
