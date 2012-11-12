@@ -10,6 +10,7 @@ class Item extends CI_Model{
 	
 	private $table = 'acervo_item'; //tabela que contém os dados do item no acervo
 	private $child = 'acervo_exemplar'; //tabela que contém registros dependentes da tabela $this->table.
+	private $emprestado = 'formulario_emprestimo';
 	
 	function __construct(){
 		parent::__construct();
@@ -45,6 +46,22 @@ class Item extends CI_Model{
 		 * */
 		$data['id'] = $id;
 		return $this->db->get_where($this->table,$data,1)->result();
+	}
+	
+	public function getFreeItemById($id){
+		return ($this->getExemplar($id))? $this->getExemplar($id):false;
+	}
+	
+	public function getExemplar($id){
+		$exemplar = $this->db->get_where($this->child,array('codigo LIKE'=>$id.'%'))->result();
+		//exit(var_dump($exemplar));
+		foreach($exemplar as $item){
+			$emprestado = $this->db->get_where($this->emprestado, array('acervo_exemplar_codigo'=>$item->codigo),1);
+			//exit(var_dump($emprestado));
+			if(!$emprestado->num_rows==0) return false;
+			else return $item;
+		}
+		return exit("Houston, we have a problem..."); //"Houston, we have a problem... ".$this->db->last_query());
 	}
 	
 	public function editar($data){

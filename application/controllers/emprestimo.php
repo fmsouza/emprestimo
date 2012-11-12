@@ -27,6 +27,7 @@ class Emprestimo extends CI_Controller{
 		$_POST['user'] = $this->session->userdata['userdata'][0];
 		$this->load->model('emprestimo_model','emprestimo');
 		$data['msg'] = ($this->emprestimo->save($_POST))? 'Empréstimo solicitado com sucesso!':'Não foi possível realizar a solicitação';
+		//exit($this->db->last_query());
 		$data['title'] = 'Solicitação de empréstimo';
 		$data['page'] = 'pages/emprestimo/comprovante';
 		$data['row'] = $_POST;
