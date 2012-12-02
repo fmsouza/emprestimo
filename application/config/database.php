@@ -50,7 +50,7 @@ $active_record = TRUE;
 
 $db['dev']['hostname'] = 'localhost';
 $db['dev']['username'] = 'root';
-$db['dev']['password'] = '71553736';
+$db['dev']['password'] = '72858787';
 $db['dev']['database'] = 'geocart_emprestimos';
 $db['dev']['dbdriver'] = 'mysql';
 $db['dev']['dbprefix'] = '';

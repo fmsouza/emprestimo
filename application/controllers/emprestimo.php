@@ -26,8 +26,32 @@ class Emprestimo extends CI_Controller{
 	public function requerer(){
 		$_POST['user'] = $this->session->userdata['userdata'][0];
 		$this->load->model('emprestimo_model','emprestimo');
-		$data['msg'] = ($this->emprestimo->save($_POST))? 'Empréstimo solicitado com sucesso!':'Não foi possível realizar a solicitação';
-		//exit($this->db->last_query());
+		if($this->emprestimo->save($_POST)){
+			$data['msg'] = 'Empréstimo solicitado com sucesso! Você deverá receber um e-mail de confirmação em breve.';
+			
+			$this->load->library('email');
+			$this->load->model('item');
+			
+			$this->email->from('naoresponda@geocart.igeo.ufrj.br','GEOCART');
+			$this->email->to($_POST['user']->email);
+			$this->email->subject('Solicitação de Empréstimo');
+			
+			$message = file_get_contents('./application/views/template/email_customer.php');
+			foreach($_POST['user'] as $key => $value)
+				if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
+			
+			$id = preg_replace("/[^0-9]/",'', $_POST['acervo_exemplar_codigo']);
+			$itemData = $this->item->get_item($id);
+			
+			foreach($itemData[0] as $key => $value)
+				if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
+			
+			$this->email->message($message);
+			$this->email->send();
+		}
+		else{
+			$data['msg'] = 'Não foi possível realizar a solicitação.';
+		}
 		$data['title'] = 'Solicitação de empréstimo';
 		$data['page'] = 'pages/emprestimo/comprovante';
 		$data['row'] = $_POST;

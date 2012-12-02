@@ -24,9 +24,13 @@ class Emprestimo_model extends CI_Model{
 		$this->load->model('item');
 		if($this->item->getFreeItemById($data['acervo_exemplar_codigo']))
 			$data['acervo_exemplar_codigo'] = $this->item->getFreeItemById($data['acervo_exemplar_codigo'])->codigo;
-		else exit(var_dump("Não achou nenhum exemplar livre: ",$data));//return false;
+		else return false;
 		
 		return ($this->db->insert($this->table['formulario'], $data));
+	}
+	
+	public function replace($key,$value,$string){
+		return str_replace("::$key::",$value,$string);
 	}
 	
 	private function prepareDate($date){
