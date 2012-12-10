@@ -2,15 +2,13 @@
 	<body>
 		<h2 align="center">Confirmação de solicitação de empréstimo</h2>
 		
-		<p>Olá, <b>::nome::</b>!</p>
+		<p>Olá, <b>administrador</b>!</p>
 		<p>
-			A sua solicitação foi realizada com sucesso e será avaliada pela nossa equipe. Assim que houver uma resposta
-			para o seu pedido você será informado pelo e-mail para que, então, possa ir buscar o seu pedido. Logo abaixo
-			estão os dados referentes ao seu pedido:
+			Há uma solicitação de empréstimo pendente aguardando pela sua aprovação!
 		</p>
 		<br/>
 		
-		<h3>Dados do usuário</h3>
+		<h3>Dados do solicitante</h3>
 		<ul>
 			<li><b>Nome:</b> ::nome::</li>
 			<li><b>E-mail:</b> ::email::</li>
@@ -27,5 +25,13 @@
 			<li><b>Data de empréstimo:</b> ::data_emprestimo::</li>
 			<li><b>Data de devolução:</b> ::data_devolucao::</li>
 		</ul>
+		<br/>
+		<br/>
+		
+		<p>Caso aprove a solicitação, clique em "aprovar". Caso contrário, clique em "negar".</p>
+		<h2 align="center">
+			<a href="::link_aprovar::" target="_blank">Aprovar</a> |
+			<a href="::link_negar::" target="_blank">Negar</a>
+		</h2>
 	</body>
 </html>
