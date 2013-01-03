@@ -54,10 +54,8 @@ class Item extends CI_Model{
 	
 	public function getExemplar($id){
 		$exemplar = $this->db->get_where($this->child,array('codigo LIKE'=>$id.'%'))->result();
-		//exit(var_dump($exemplar));
 		foreach($exemplar as $item){
 			$emprestado = $this->db->get_where($this->emprestado, array('acervo_exemplar_codigo'=>$item->codigo),1);
-			//exit(var_dump($emprestado));
 			if(!$emprestado->num_rows==0) return false;
 			else return $item;
 		}

@@ -27,5 +27,7 @@
 			<li><b>Data de empréstimo:</b> ::data_emprestimo::</li>
 			<li><b>Data de devolução:</b> ::data_devolucao::</li>
 		</ul>
+		<br/><br/>
+		<p>Equipe GEOCART</p>
 	</body>
 </html>

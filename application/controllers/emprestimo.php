@@ -79,28 +79,33 @@ class Emprestimo extends CI_Controller{
 	}
 	
 	public function aprovar($id){
-		echo "Aprovado!";
+		$this->load->model('deferimento');
+		$this->emailFeedback($this->deferimento->aprovar($id));
 	}
 	
 	public function negar($id){
-		echo "Negado!";
+		$this->load->model('deferimento');
+		$this->emailFeedback($this->deferimento->negar($id));
 	}
 	
-	public function algo(){
-		$this->load->model('exemplar');
+	private function emailFeedback($resposta){
+		$this->load->library('email');
+		$this->load->model('item');
 		$this->load->model('emprestimo_model','emprestimo');
-		$exemplares = $this->exemplar->getExemplares($codigo);
-		$exemplaresDisponiveis = count($exemplares);
-		
-		foreach($exemplares as $exemplar){
-			if($this->emprestimo->isBorrowed($exemplar->acervo_item_id))
-				$exemplaresDisponiveis--;
-		}
-		
-		if($exemplaresDisponiveis>0)
-			echo $exemplaresDisponiveis;
-		else
-			$data['msg'] = "Não há exemplares disponíveis.";
+			
+		// E-mail de confirmação para o solicitante
+		$this->email->from('naoresponda@geocart.igeo.ufrj.br','GEOCART');
+		$this->email->to($data->email);
+		$this->email->subject('Solicitação de Empréstimo');
+		$message = file_get_contents('./application/views/template/email_feedback_deferido.php');
+		foreach($data as $key => $value) if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
+		$id = preg_replace("/[^0-9]/",'', $_POST['acervo_exemplar_codigo']);
+		$itemData = $this->item->get_item($id);
+		foreach($itemData[0] as $key => $value)
+			if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
+		$message = $this->emprestimo->replace('data_emprestimo',$_POST['data_emprestimo'],$message);
+		$message = $this->emprestimo->replace('data_devolucao',$_POST['data_devolucao'],$message);
+		$this->email->message($message);
+		$this->email->send();		
 	}
-	
 }

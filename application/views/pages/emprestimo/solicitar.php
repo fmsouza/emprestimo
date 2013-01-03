@@ -15,7 +15,10 @@
 		<?php if(!empty($row->prazo)): ?>
 		<tr>
 			<th>Prazo máximo de empréstimo(dias):</th>
-			<td><?php echo $row->prazo; ?></td>
+			<td>
+				<?php echo $row->prazo; ?>
+				<input type="hidden" name="prazo" value="<?php echo $row->prazo; ?>" />
+			</td>
 		</tr>
 		<?php endif; ?>
 	
