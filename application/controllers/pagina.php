@@ -1,12 +1,11 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Este é o controlador de páginas. Aqui são definidos os métodos referentes ao carregamento
+ * de todas as páginas do sistema. Elas podem ser acessadas por pagina/<metodo> ou pelo endereço
+ * definido em application/config/routes.php
+ */
 class Pagina extends CI_Controller {
-	/*
-	 * Este é o controlador de páginas. Aqui são definidos os métodos referentes ao carregamento
-	 * de todas as páginas do sistema. Elas podem ser acessadas por pagina/<metodo> ou pelo endereço
-	 * definido em application/config/routes.php
-	 * 
-	 * */
 	
 	private $setor = array(
 			'mapas' 		=> 'mec',
@@ -26,14 +25,13 @@ class Pagina extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Carrega a tela de pesquisa desejada. É passado como argumento o setor de cadastro desejado.
+	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
+	 * o usuário será redirecionado para a página da pesquisa que desejar. Caso contrário, será
+	 * redirecionado para a página inicial.
+	 */
 	public function pesquisa($setor){
-		/*
-		 * Carrega a tela de pesquisa desejada. É passado como argumento o setor de cadastro desejado.
-		 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
-		 * o usuário será redirecionado para a página da pesquisa que desejar. Caso contrário, será
-		 * redirecionado para a página inicial.
-		 * 
-		 * */
 		$data['page']  = "pages/internal/pesquisa";
 		$data['setor'] = $setor;
 		switch($setor){
@@ -56,14 +54,13 @@ class Pagina extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Carrega a tela de cadastro desejada. É passado como argumento o setor de cadastro desejado.
+	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
+	 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
+	 * redirecionado para a página inicial.
+	 */
 	public function cadastro($setor){
-		/*
-		 * Carrega a tela de cadastro desejada. É passado como argumento o setor de cadastro desejado.
-		 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
-		 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
-		 * redirecionado para a página inicial.
-		 * 
-		 * */
 		$data['title'] = "Cadastro";
 		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
@@ -100,14 +97,13 @@ class Pagina extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Carrega a tela de administração desejada. É passado como argumento o setor de administração desejado.
+	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
+	 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
+	 * redirecionado para a página inicial.
+	 */
 	public function admin($setor){
-		/*
-		 * Carrega a tela de administração desejada. É passado como argumento o setor de administração desejado.
-		 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
-		 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
-		 * redirecionado para a página inicial.
-		 * 
-		 * */
 		$data['title'] = "Administração";
 		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
@@ -150,6 +146,27 @@ class Pagina extends CI_Controller {
 				$data['title'] 	.= " - Equipamentos";
 				$this->load->model('item');
 				$data['registro']	 = $this->item->equipamentos()->result();
+				break;
+			
+			case "retirar":
+				$this->load->model('emprestimo_model','emprestimo');
+				$this->nivel_usuario->verify_access('deferir_emprestimo');
+				$data['title'] 	.= " - Retirada";
+				$data['registro'] = $this->emprestimo->getARetirar();
+				break;
+			
+			case "devolucao":
+				$this->load->model('emprestimo_model','emprestimo');
+				$this->nivel_usuario->verify_access('deferir_emprestimo');
+				$data['title'] 	.= " - Devolução";
+				$data['registro'] = $this->emprestimo->getADevolver();
+				break;
+				
+			case "blacklist":
+				$this->load->model('blacklist');
+				$this->nivel_usuario->verify_access('editar_usuario');
+				$data['title'] 	.= " - Lista Negra";
+				$data['registro'] = $this->blacklist->get();
 				break;
 			
 			default:

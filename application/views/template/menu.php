@@ -49,6 +49,9 @@
 							<tr>
 								<td><a href="pagina/admin/usuarios">Usuários</a></td>
 							</tr>
+							<tr>
+								<td><a href="pagina/admin/blacklist">Lista Negra</a></td>
+							</tr>
 							<?php endif;?>
 							<?php if($this->nivel_usuario->getNivel('ver_categoria')):?>
 							<tr>
@@ -66,7 +69,10 @@
 							<?php endif;?>
 							<?php if($this->nivel_usuario->getNivel('deferir_emprestimo')):?>
 							<tr>
-								<td><a href="pagina/admin/emprestimos">Empréstimos</a></td>
+								<td><a href="pagina/admin/retirar">Retirada</a></td>
+							</tr>
+							<tr>
+								<td><a href="pagina/admin/devolucao">Devolução</a></td>
 							</tr>
 							<?php endif;?>
 						</table>

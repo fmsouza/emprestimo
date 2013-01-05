@@ -95,6 +95,38 @@ class Editar extends CI_Controller{
 		$data['mapa'] 	 = $this->item->get_item($id);
 		$this->load->view('template',$data);
 	}
+	
+	public function emprestimo($acao,$id){
+		$this->load->model('emprestimo_model','emprestimo');
+		switch($acao){
+			case "retirar":
+				if($this->emprestimo->retirar($id))
+					header("Location: pagina/admin/retirar");
+				else
+					header("Location: editar/erro");
+				break;
+				
+			case "cancelar":
+				if($this->emprestimo->cancelar($id))
+					header("Location: pagina/admin/retirar");
+				else
+					header("Location: editar/erro");
+				break;
+				
+			case "devolver":
+				if($this->emprestimo->devolver($id))
+					header("Location: pagina/admin/devolucao");
+				else
+					header("Location: editar/erro");
+				break;
+		}
+	}
+	
+	public function erro(){
+		$data['title'] = 'Erro'
+		$data['page'] = "pages/admin/erro";
+		$this->load->view('template',$data);
+	}
 }
 
 /* End of file editar.php */

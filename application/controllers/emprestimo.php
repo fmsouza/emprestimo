@@ -2,6 +2,8 @@
 
 class Emprestimo extends CI_Controller{
 	
+	private $email_admin = 'fmsouza@ufrj.br';
+	
 	public function __construct(){
 		parent::__construct();
 		$this->usuario->is_logged();
@@ -52,7 +54,7 @@ class Emprestimo extends CI_Controller{
 			// E-mail de confirmação para o administrador
 			$this->email->clear();
 			$this->email->from('naoresponda@geocart.igeo.ufrj.br','GEOCART');
-			$this->email->to("fmsouza@ufrj.br");
+			$this->email->to($this->email_admin);
 			$this->email->subject('Solicitação de Empréstimo');
 			$message = file_get_contents('./application/views/template/email_admin.php');
 			foreach($_POST['user'] as $key => $value)

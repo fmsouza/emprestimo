@@ -2,19 +2,16 @@
 
 class Blacklist extends CI_Model{
 	
-	private $table = 'blacklist';
-
-	public function isBlacklisted(){
-		$data = $this->session->userdata['userdata'][0];
-		return ($this->db->get_where($this->table, array('usuario_cpf',$data->cpf)))? TRUE:FALSE;
+	public function __construct(){
+		this->load->model('emprestimo_model','emprestimo');
 	}
 	
-	public function removeFromBlacklist($cpf){
-		return ($this->db->delete($this->table,array('usuario_cpf',$cpf)))? TRUE:FALSE;
+	public function isBlacklisted(){
+		$data = $this->session->userdata['userdata'][0];
+		return ($this->emprestimo->isLate($data->cpf))? TRUE:FALSE;
 	}
 	
 	public function get(){
-		return $this->db->get($this->table)->result();
+		return $this->emprestimo->getLate();
 	}
-	
 }

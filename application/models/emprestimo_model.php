@@ -66,4 +66,53 @@ class Emprestimo_model extends CI_Model{
 		}
 		else return FALSE;
 	}
+	
+	public function isLate($cpf){
+		$data = array(
+					'usuario_cpf'		=> $cpf,
+					'data_devolucao <'  => 'CURDATE()',
+					'devolvido'			=> '0',
+					'retirado'			=> '1'
+				);
+		$atrasos = $this->db->get_where($this->table['formulario'],$data);
+	}
+	
+	public function getLate(){
+		$data = array(
+					'data_devolucao <'  => 'CURDATE()',
+					'devolvido'			=> '0',
+					'retirado'			=> '1',
+					'usuario.cpf'		=> {this->table['formulario']}.'usuario_cpf'
+				);
+		return $this->db->select("{this->table['formulario']}.usuario_cpf as cpf, usuario.nome {this->table['formulario']}.data_devolucao, {this->table['formulario']}.devolvido, {this->table['formulario']}.retirado")->from($this->table['formulario'].',usuario')->where($data)->get()->result();
+	}
+	
+	public function getARetirar(){
+		$data = array(
+					'retirado' => '0'
+				);
+		return $this->db->select('id, usuario_cpf as cpf, acervo_exemplar_codigo as item, data_emprestimo, data_devolucao, retirado')->from($this->table['formulario'])->where($data)->get()->result();
+	}
+	
+	public function getADevolver(){
+		$data = array(
+					'retirado'  => '1',
+					'devolvido' => '0'
+				);
+		return $this->db->select('id, usuario_cpf as cpf, acervo_exemplar_codigo as item, data_devolucao, retirado')->from($this->table['formulario'])->where($data)->get()->result();
+	}
+	
+	public function retirar($id){
+		$this->db->where(array('id'=>$id));
+		$this-db->update($this->table['formulario'],array('retirado'=>1));
+	}
+	
+	public function cancelar($id){
+		return $this->db->delete($this->table['formulario'],array('id'=>$id));
+	}
+	
+	public function devolver($id){
+		$this->db->where(array('id'=>$id));
+		$this-db->update($this->table['formulario'],array('devolvido'=>1));
+	}
 }
