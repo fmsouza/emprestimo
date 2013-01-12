@@ -16,12 +16,16 @@
 	<?php
 		if(!empty($registro)): 
 			foreach($registro as $row):
+				$de = explode("-",$row->data_emprestimo);
+				$de = $de[2]."/".$de[1]."/".$de[0];
+				$dd = explode("-",$row->data_devolucao);
+				$dd = $dd[2]."/".$dd[1]."/".$dd[0];
 		?>
 		<tr>
 			<td><?php echo $row->cpf;?></td>
 			<td><?php echo $row->item;?></td>
-			<td><?php echo $row->data_emprestimo;?></td>
-			<td><?php echo $row->data_devolucao;?></td>
+			<td><?php echo $de;?></td>
+			<td><?php echo $dd;?></td>
 			<td>
 				<a href="editar/emprestimo/retirar/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="retirar" title="Retirar" /></a>
 				<a href="apagar/emprestimo/cancelar/<?php echo $row->id;?>"><img src="static/images/icons/delete.gif" alt="cancelar" onclick="return confirm('Tem certeza que deseja cancelar esse empréstimo?');" title="Cancelar" /></a>

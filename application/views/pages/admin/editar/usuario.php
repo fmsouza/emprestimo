@@ -8,16 +8,32 @@
 	<input type="hidden" value="<?php echo $usuario->cpf;?>"name="cpf" />
 	<table>
 		<tr>
+			<th>Nome:</th>
+			<td><input type="text" value="<?php echo $usuario->nome;?>" id="nome" name="nome" class="textbox" /><span class="validate">*</span></td>
+		</tr>
+		<tr>
+			<th>Tipo de usuário:</th>
+			<td>
+				<select name="nivel_usuario_id">
+				<?php
+					$selected='';
+					foreach($niveis as $nivel):
+						if($nivel->id==$usuario->nivel_usuario_id) $selected="selected='selected' ";
+						echo "<option value='{$nivel->id}' {$selected}/>{$nivel->nome}";
+						$selected='';
+					endforeach;
+				?>
+				</select>
+				<span class="validate">*</span>
+			</td>
+		</tr>
+		<tr>
 			<th>DRE:</th>
 			<td><input type="text" value="<?php echo $usuario->dre;?>" id="dre" name="dre" class="textbox" /></td>
 		</tr>
 		<tr>
 			<th>SIAPE:</th>
 			<td><input type="text" value="<?php echo $usuario->siape;?>" id="siape" name="siape" class="textbox" /></td>
-		</tr>
-		<tr>
-			<th>Nome:</th>
-			<td><input type="text" value="<?php echo $usuario->nome;?>" id="nome" name="nome" class="textbox" /><span class="validate">*</span></td>
 		</tr>
 		<tr>
 			<th>Identidade:</th>

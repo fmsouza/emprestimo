@@ -15,11 +15,13 @@
 	<?php
 		if(!empty($registro)):
 			foreach($registro as $row):
+				$dd = explode("-",$row->data_devolucao);
+				$dd = $dd[2]."/".$dd[1]."/".$dd[0];
 		?>
 		<tr>
 			<td><?php echo $row->cpf;?></td>
 			<td><?php echo $row->item;?></td>
-			<td><?php echo $row->data_devolucao;?></td>
+			<td><?php echo $dd;?></td>
 			<td>
 				<a href="editar/emprestimo/devolver/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="devolver" title="Devolver" /></a>
 			</td>

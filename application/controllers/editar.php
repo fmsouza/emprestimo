@@ -15,8 +15,10 @@ class Editar extends CI_Controller{
 		/*
 		 * Carrega a página de alteração de dados de usuário. Recebe como parâmetro o CPF para realizar a busca.
 		 */
-		$this->load->model('Usuario_model','usuario');
+		$this->load->model('usuario');
+		$this->load->model('nivel_usuario','nivel');
 		$data['usuario'] 	= $this->usuario->get_user(array('cpf' => $cpf));
+		$data['niveis']		= $this->nivel->get()->result();
 		$data['title'] 		= "Editar - Usuário";
 		$data['page'] 		= "pages/admin/editar/usuario";
 		$this->load->view('template',$data);

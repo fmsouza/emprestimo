@@ -82,6 +82,11 @@ class Emprestimo_model extends CI_Model{
 		return $this->db->select("{$this->table['formulario']}.usuario_cpf as cpf, usuario.nome, usuario.email, {$this->table['formulario']}.data_devolucao, {$this->table['formulario']}.devolvido, {$this->table['formulario']}.retirado")->from($this->table['formulario'].',usuario')->where($data)->group_by('usuario.email')->get()->result();
 	}
 	
+	public function getPedidos($cpf){
+		$data = array('usuario_cpf' => $cpf);
+		return $this->db->select('id, usuario_cpf as cpf, acervo_exemplar_codigo as item, data_emprestimo, data_devolucao, retirado, devolvido')->from($this->table['formulario'])->where($data)->order_by("data_devolucao DESC")->get()->result();
+	}
+	
 	public function getARetirar(){
 		$data = array(
 					'retirado' => '0'

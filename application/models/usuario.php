@@ -31,7 +31,10 @@ class Usuario extends CI_Model{
 		 * retorna os dados deste usuário caso ele exista e vazio caso contrário.
 		 * 
 		 * */
-		return $this->db->get_where($this->table,$data,1)->result();
+		return $this->db->select("usuario.* , nivel_usuario.nome AS tipo")
+				->from("usuario, nivel_usuario")
+				->where("usuario.cpf = '{$data['cpf']}' AND usuario.nivel_usuario_id = nivel_usuario.id")
+		 		->get()->result();
 	}
 	
 	public function get(){

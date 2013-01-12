@@ -7,6 +7,14 @@
 <?php foreach($usuario as $row):?>
 <table class="view">
 	<tr>
+		<th>Nome:</th>
+		<td><?php echo $row->nome; ?></td>
+	</tr>
+	<tr>
+		<th>Tipo de usuário:</th>
+		<td><?php echo $row->tipo; ?></td>
+	</tr>
+	<tr>
 		<th>CPF:</th>
 		<td><?php echo $row->cpf; ?></td>
 	</tr>
@@ -17,10 +25,6 @@
 	<tr>
 		<th>SIAPE:</th>
 		<td><?php echo $row->siape; ?></td>
-	</tr>
-	<tr>
-		<th>Nome:</th>
-		<td><?php echo $row->nome; ?></td>
 	</tr>
 	<tr>
 		<th>Identidade:</th>

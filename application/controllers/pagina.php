@@ -169,6 +169,13 @@ class Pagina extends CI_Controller {
 				$data['title'] 	.= " - Lista Negra";
 				$data['registro'] = $this->blacklist->get();
 				break;
+				
+			case "emprestimos":
+				$this->load->model('emprestimo_model','emprestimo');
+				$data['title'] 	.= " - Lista de pedidos";
+				$cpf = $this->session->userdata['userdata'][0]->cpf;
+				$data['registro'] = $this->emprestimo->getPedidos($cpf);
+				break;
 			
 			default:
 				$data['page'] 	 = "pages/internal/pesquisa";
