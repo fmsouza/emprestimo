@@ -103,7 +103,7 @@ class Pagina extends CI_Controller {
 	 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
 	 * redirecionado para a página inicial.
 	 */
-	public function admin($setor){
+	public function admin($setor,$action=''){
 		$data['title'] = "Administração";
 		$data['page'] = "pages/".__FUNCTION__."/".$setor;
 		switch($setor){
@@ -164,6 +164,7 @@ class Pagina extends CI_Controller {
 				
 			case "blacklist":
 				$this->load->model('blacklist');
+				if($action=='notificar') $data['msg'] = ($this->blacklist->notifyAll())?'Notificações enviadas!':'Erro no envio das notificações.';
 				$this->nivel_usuario->verify_access('editar_usuario');
 				$data['title'] 	.= " - Lista Negra";
 				$data['registro'] = $this->blacklist->get();

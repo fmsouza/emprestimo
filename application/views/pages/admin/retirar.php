@@ -13,16 +13,28 @@
 		<th>Data de Devolução</th>
 		<th>Ações</th>
 	</tr>
-	<?php foreach($registro as $row):?>
-	<tr>
-		<td><?php echo $row->cpf;?></td>
-		<td><?php echo $row->item;?></td>
-		<td><?php echo $row->data_emprestimo;?></td>
-		<td><?php echo $row->data_devolucao;?></td>
-		<td>
-			<a href="editar/emprestimo/retirar/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="retirar" title="Retirar" /></a>
-			<a href="apagar/emprestimo/cancelar/<?php echo $row->id;?>"><img src="static/images/icons/delete.gif" alt="cancelar" onclick="return confirm('Tem certeza que deseja cancelar esse empréstimo?');" title="Cancelar" /></a>
-		</td>
-	</tr>
-	<?php endforeach;?>
+	<?php
+		if(!empty($registro)): 
+			foreach($registro as $row):
+		?>
+		<tr>
+			<td><?php echo $row->cpf;?></td>
+			<td><?php echo $row->item;?></td>
+			<td><?php echo $row->data_emprestimo;?></td>
+			<td><?php echo $row->data_devolucao;?></td>
+			<td>
+				<a href="editar/emprestimo/retirar/<?php echo $row->id;?>"><img src="static/images/icons/edit.gif" alt="retirar" title="Retirar" /></a>
+				<a href="apagar/emprestimo/cancelar/<?php echo $row->id;?>"><img src="static/images/icons/delete.gif" alt="cancelar" onclick="return confirm('Tem certeza que deseja cancelar esse empréstimo?');" title="Cancelar" /></a>
+			</td>
+		</tr>
+		<?php 
+			endforeach;
+		else:
+	?>
+		<tr>
+			<td colspan="5">Não há itens a serem retiradas.</td>
+		</tr>
+	<?php
+		endif;
+	?>
 </table>

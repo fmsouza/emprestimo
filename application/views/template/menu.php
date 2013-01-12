@@ -40,6 +40,9 @@
 							<tr>
 								<td class="divider">Administração</td>
 							</tr>
+							<tr>
+								<td><a href="pagina/admin/emprestimos">Pedidos</a></td>
+							</tr>
 							<?php if($this->nivel_usuario->getNivel('editar_usuario')):?>
 							<tr>
 								<td><a href="pagina/admin/permissoes">Tipos de Usuário</a></td>

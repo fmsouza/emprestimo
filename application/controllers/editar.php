@@ -100,30 +100,45 @@ class Editar extends CI_Controller{
 		$this->load->model('emprestimo_model','emprestimo');
 		switch($acao){
 			case "retirar":
-				if($this->emprestimo->retirar($id))
-					header("Location: pagina/admin/retirar");
+				if($this->emprestimo->retirar($id)){
+					$this->load->model('emprestimo_model','emprestimo');
+					$data['page'] = "pages/admin/retirar";
+					$data['title'] = "Retirada";
+					$data['registro'] = $this->emprestimo->getARetirar();
+					$this->load->view('template',$data);
+				}
 				else
-					header("Location: editar/erro");
+					$this->erro();
 				break;
 				
 			case "cancelar":
-				if($this->emprestimo->cancelar($id))
-					header("Location: pagina/admin/retirar");
+				if($this->emprestimo->cancelar($id)){
+					$this->load->model('emprestimo_model','emprestimo');
+					$data['page'] = "pages/admin/retirar";
+					$data['title'] = "Retirada";
+					$data['registro'] = $this->emprestimo->getARetirar();
+					$this->load->view('template',$data);
+				}
 				else
-					header("Location: editar/erro");
+					$this->erro();
 				break;
 				
 			case "devolver":
-				if($this->emprestimo->devolver($id))
-					header("Location: pagina/admin/devolucao");
+				if($this->emprestimo->devolver($id)){
+					$this->load->model('emprestimo_model','emprestimo');
+					$data['page'] = "pages/admin/devolucao";
+					$data['title'] = "Devolução";
+					$data['registro'] = $this->emprestimo->getADevolver();
+					$this->load->view('template',$data);
+				}
 				else
-					header("Location: editar/erro");
+					$this->erro();
 				break;
 		}
 	}
 	
 	public function erro(){
-		$data['title'] = 'Erro'
+		$data['title'] = 'Erro';
 		$data['page'] = "pages/admin/erro";
 		$this->load->view('template',$data);
 	}

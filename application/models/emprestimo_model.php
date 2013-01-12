@@ -20,14 +20,14 @@ class Emprestimo_model extends CI_Model{
 		$data['data_emprestimo'] = $this->prepareDate($data['data_emprestimo']);
 		$data['data_devolucao'] = $this->prepareDate($data['data_devolucao']);
 		$limite = (int) $_POST['prazo'];
-		
+		unset($data['prazo']);
 		if($this->comparaData($data['data_devolucao'],$data['data_emprestimo'],$limite)){
 			//Pega o código de um exemplar e o seta caso não esteja emprestado. Retorna false caso contrário
 			$this->load->model('item');
 			$item = $this->item->getFreeItemById($data['acervo_exemplar_codigo']);
 			
 			if($item) $data['acervo_exemplar_codigo'] = $item->codigo;
-			else return false;
+			else return FALSE;
 			
 			return ($this->db->insert($this->table['formulario'], $data));
 		}
@@ -78,13 +78,8 @@ class Emprestimo_model extends CI_Model{
 	}
 	
 	public function getLate(){
-		$data = array(
-					'data_devolucao <'  => 'CURDATE()',
-					'devolvido'			=> '0',
-					'retirado'			=> '1',
-					'usuario.cpf'		=> {this->table['formulario']}.'usuario_cpf'
-				);
-		return $this->db->select("{this->table['formulario']}.usuario_cpf as cpf, usuario.nome {this->table['formulario']}.data_devolucao, {this->table['formulario']}.devolvido, {this->table['formulario']}.retirado")->from($this->table['formulario'].',usuario')->where($data)->get()->result();
+		$data = "`{$this->table['formulario']}`.`data_devolucao` < CURDATE() AND `{$this->table['formulario']}`.`devolvido` = 0 AND `{$this->table['formulario']}`.`retirado` = 1 AND `usuario`.`cpf` = `{$this->table['formulario']}`.`usuario_cpf`";
+		return $this->db->select("{$this->table['formulario']}.usuario_cpf as cpf, usuario.nome, usuario.email, {$this->table['formulario']}.data_devolucao, {$this->table['formulario']}.devolvido, {$this->table['formulario']}.retirado")->from($this->table['formulario'].',usuario')->where($data)->group_by('usuario.email')->get()->result();
 	}
 	
 	public function getARetirar(){
@@ -104,7 +99,7 @@ class Emprestimo_model extends CI_Model{
 	
 	public function retirar($id){
 		$this->db->where(array('id'=>$id));
-		$this-db->update($this->table['formulario'],array('retirado'=>1));
+		return $this->db->update($this->table['formulario'],array('retirado'=>1));
 	}
 	
 	public function cancelar($id){
@@ -113,6 +108,10 @@ class Emprestimo_model extends CI_Model{
 	
 	public function devolver($id){
 		$this->db->where(array('id'=>$id));
-		$this-db->update($this->table['formulario'],array('devolvido'=>1));
+		return $this->db->update($this->table['formulario'],array('devolvido'=>1));
+	}
+	
+	public function ultimoId(){
+		return $this->db->insert_id();
 	}
 }

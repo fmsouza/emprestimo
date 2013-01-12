@@ -9,12 +9,11 @@ class Emprestimo extends CI_Controller{
 		$this->usuario->is_logged();
 	}
 	
+	/**
+	 * Verifica se há exemplares disponíveis, para então permitir que seja feita a solicitação.
+	 * Exibe uma tela com um calendário para selecionar a data de empréstimo e a de devolução.
+	 */
 	public function solicitar($codigo){
-		/*
-		 * Verifica se há exemplares disponíveis, para então permitir que seja feita a solicitação.
-		 * 
-		 * Exibe uma tela com um calendário para selecionar a data de empréstimo e a de devolução.
-		 */
 		$this->load->model('item');
 		$this->load->model('finalidade');
 		$row = $this->item->get_item($codigo);
@@ -61,19 +60,19 @@ class Emprestimo extends CI_Controller{
 				if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
 			$id = preg_replace("/[^0-9]/",'', $_POST['acervo_exemplar_codigo']);
 			$itemData = $this->item->get_item($id);
+			$codigo = $this->emprestimo->ultimoId();
 			foreach($itemData[0] as $key => $value)
 				if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
 			$message = $this->emprestimo->replace('data_emprestimo',$_POST['data_emprestimo'],$message);
 			$message = $this->emprestimo->replace('data_devolucao',$_POST['data_devolucao'],$message);
-			$message = $this->emprestimo->replace("link_aprovar",base_url()."emprestimo/aprovar/".$id,$message);
-			$message = $this->emprestimo->replace("link_negar",base_url()."emprestimo/negar/".$id,$message);
+			$message = $this->emprestimo->replace("link_aprovar",base_url()."emprestimo/aprovar/".$codigo,$message);
+			$message = $this->emprestimo->replace("link_negar",base_url()."emprestimo/negar/".$codigo,$message);
 			$this->email->message($message);
 			$this->email->send();
 			//Fim do E-mail de confirmação para o solicitante
 		}
-		else{
-			$data['msg'] = 'Não foi possível realizar a solicitação.';
-		}
+		else $data['msg'] = 'Não foi possível realizar a solicitação.';
+		
 		$data['title'] = 'Solicitação de empréstimo';
 		$data['page'] = 'pages/emprestimo/comprovante';
 		$data['row'] = $_POST;
@@ -82,32 +81,52 @@ class Emprestimo extends CI_Controller{
 	
 	public function aprovar($id){
 		$this->load->model('deferimento');
-		$this->emailFeedback($this->deferimento->aprovar($id));
+		if($this->deferimento->aprovar($id))
+			$this->emailFeedback("deferido",$id);
+		else exit("Erro");
 	}
 	
 	public function negar($id){
 		$this->load->model('deferimento');
-		$this->emailFeedback($this->deferimento->negar($id));
+		if($this->deferimento->negar($id))
+			$this->emailFeedback("indeferido",$id);
+		else exit("Erro");
 	}
 	
-	private function emailFeedback($resposta){
+	private function emailFeedback($resposta,$id){
 		$this->load->library('email');
 		$this->load->model('item');
 		$this->load->model('emprestimo_model','emprestimo');
 			
 		// E-mail de confirmação para o solicitante
 		$this->email->from('naoresponda@geocart.igeo.ufrj.br','GEOCART');
+		
+		/*
+		 * FIXME: cade o e-mail do cara?
+		 */
+		$to = $this->db->get_where("emprestimo_deferimento",array('formulario_emprestimo_id'=>$id))->result();
+		$to = $to[0];
+		$to = $this->db->get_where("usuario",array('cpf'=>$to->formulario_emprestimo_usuario_cpf))->result();
+		$to = $to[0];
+		$data = $to;
+		
 		$this->email->to($data->email);
+		
 		$this->email->subject('Solicitação de Empréstimo');
-		$message = file_get_contents('./application/views/template/email_feedback_deferido.php');
-		foreach($data as $key => $value) if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
-		$id = preg_replace("/[^0-9]/",'', $_POST['acervo_exemplar_codigo']);
-		$itemData = $this->item->get_item($id);
-		foreach($itemData[0] as $key => $value)
-			if(!is_object($value)) $message = $this->emprestimo->replace($key,$value,$message);
-		$message = $this->emprestimo->replace('data_emprestimo',$_POST['data_emprestimo'],$message);
-		$message = $this->emprestimo->replace('data_devolucao',$_POST['data_devolucao'],$message);
+		
+		switch($resposta){
+			case "deferido":
+				$message = file_get_contents('./application/views/template/email_feedback_deferido.php');
+				$message = $this->emprestimo->replace('nome',$data->nome,$message);
+				break;
+			
+			case "indeferido":
+				$message = file_get_contents('./application/views/template/email_feedback_deferido.php');
+				break;
+		}
 		$this->email->message($message);
-		$this->email->send();		
+		$this->email->send();
+		echo "O pedido foi {$resposta} com sucesso!";
+		echo "<script>Window.close()</script>";		
 	}
 }
