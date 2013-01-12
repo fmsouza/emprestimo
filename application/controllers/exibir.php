@@ -45,13 +45,25 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
-	public function item($setor,$id){
+	public function item($setor,$id,$action=''){
 		/*
 		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.
 		 */
 		$this->load->model('item');
+		if($action=='novoExemplar'){
+			$this->load->model('exemplar');
+			$item = $this->item->get_item($id);
+			$item = $item[0];
+			$numExemplares = count($this->exemplar->getExemplares($item->acervo_categoria_id.$item->id));
+			$arr = array(
+				'acervo_categoria_id' =>$item->acervo_categoria_id,
+				'acervo_item_id' => $item->id
+			);
+			$data['msg'] = ($this->exemplar->novo($arr,$numExemplares+1))? 'Exemplar adicionado com sucesso!':'Erro na criação de um novo exemplar!';
+		}
 		$data[$setor] 		= $this->item->get_item($id);
-		$data['title'] 		= "Exibir - .".$this->item->title_setor($setor);
+		$data['title'] 		= "Exibir - ".$this->item->title_setor($setor);
+		$data['numExemp']	= count($this->item->getExemplares($id));
 		$data['page'] 		= "pages/admin/exibir/".$setor;
 		$this->load->view('template',$data);
 	}

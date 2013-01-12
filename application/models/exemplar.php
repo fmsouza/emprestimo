@@ -26,6 +26,23 @@ class Exemplar extends CI_Model{
 			return false;
 	}
 	
+	public function novo($data,$num){
+		/*
+		 * Esse método recebe como parâmetro os dados a serem inseridos no banco, já pareados
+		 * de acordo com as colunas da tabela em forma de array() coluna->valor e os insere
+		 * no banco. Caso os dados sejam inseridos, retorna TRUE. Caso contrário, retorna FALSE.
+		 * 
+		 * */
+		$data['codigo'] = $data['acervo_categoria_id'].$data['acervo_item_id'].'-'; //Monta o início do código do exemplar
+		$data['codigo'] .= $this->fill_zero($num,$this->tam - strlen($data['codigo'])); //Adiciona o código do primeiro exemplar
+		$data['data_inclusao'] = date('Y-m-d');
+		unset($data['acervo_categoria_id']);
+		if($this->db->insert($this->table,$data))
+			return true;
+		else
+			return false;
+	}
+	
 	public function get_exemplar($id){
 		/*
 		 * Esse método recebe como parâmetro o id da categoria para que se possa buscar seus

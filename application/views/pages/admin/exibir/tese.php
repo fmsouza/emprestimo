@@ -30,9 +30,16 @@
 		<th>Autor:</th>
 		<td><?php echo $row->autor; ?></td>
 	</tr>
-		<tr>
-			<td align="right"><a href="pagina/admin/teses"><input type="button" class="button" value="Voltar" /></a></td>
-			<td><a href="editar/item/tese/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
-		</tr>
+	<tr>
+		<th>N⁰ de exemplares:</th>
+		<td><?php echo $numExemp; ?></td>
+	</tr>
+	<tr>
+		<td align="right">
+			<a href="exibir/item/tese/<?php echo $row->id; ?>/novoExemplar"><input type="button" class="button" value="Adicionar Exemplar" /></a>
+			<a href="pagina/admin/teses"><input type="button" class="button" value="Voltar" /></a>
+		</td>
+		<td><a href="editar/item/tese/<?php echo $row->id; ?>"><input type="button" class="button clean" value="Editar" /></a></td>
+	</tr>
 </table>
 <?php endforeach; ?>
