@@ -14,7 +14,7 @@ form h1{
 	margin-bottom: 20px;
 	border-bottom: 1px solid #CFCFB4;
 }
-#header, #menu, #content, #upper-footer, #footer{ width: 940px; }
+#header, #menu, #content, #upper-footer, #footer, #copyright{ width: 940px; }
 #header{
 	background-image: url("../images/bg_header.png");
 	height: 132px;
@@ -53,6 +53,18 @@ form h1{
 	height: 65px;
 	float: right;
 	margin: 5px 10px 0 0;
+}
+#copyright{
+	background-color: #292B26;
+	padding: 3px 0 0 0;
+	color: #FFF;
+}
+#copyright a, #copyright #title{
+	color: #9f9f9f;
+}
+#copyright a img{
+	margin-top: 5px;
+	margin-bottom: 3px;
 }
 .msg{
 	width: 300px;
