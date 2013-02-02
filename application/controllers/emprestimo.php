@@ -1,9 +1,23 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Controle de operações de empréstimo
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ * 
+ */
 class Emprestimo extends CI_Controller{
 	
+	/**
+	 * @property Endereço de e-mail do administrador do sistema 
+	 */
 	private $email_admin = 'fmsouza@ufrj.br';
 	
+	/**
+	 * Verifica se o usuário está logado com permissão de acesso ao módulo.
+	 * @return void
+	 */
 	public function __construct(){
 		parent::__construct();
 		$this->usuario->is_logged();
@@ -12,6 +26,8 @@ class Emprestimo extends CI_Controller{
 	/**
 	 * Verifica se há exemplares disponíveis, para então permitir que seja feita a solicitação.
 	 * Exibe uma tela com um calendário para selecionar a data de empréstimo e a de devolução.
+	 * @param string $codigo Codigo do ITEM
+	 * @return void
 	 */
 	public function solicitar($codigo){
 		$this->load->model('item');
@@ -24,6 +40,10 @@ class Emprestimo extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Realiza um requerimento de empréstimo.
+	 * @return void 
+	 */
 	public function requerer(){
 		$_POST['user'] = $this->session->userdata['userdata'][0];
 		$this->load->model('emprestimo_model','emprestimo');
@@ -72,13 +92,17 @@ class Emprestimo extends CI_Controller{
 			//Fim do E-mail de confirmação para o solicitante
 		}
 		else $data['msg'] = 'Não foi possível realizar a solicitação.';
-		
 		$data['title'] = 'Solicitação de empréstimo';
 		$data['page'] = 'pages/emprestimo/comprovante';
 		$data['row'] = $_POST;
 		$this->load->view('template',$data);	
 	}
 	
+	/**
+	 * Aprova uma solicitação de empréstimo.
+	 * @param int $id Identificador do pedido
+	 * @return void
+	 */
 	public function aprovar($id){
 		$this->load->model('deferimento');
 		if($this->deferimento->aprovar($id))
@@ -86,6 +110,11 @@ class Emprestimo extends CI_Controller{
 		else exit("Erro");
 	}
 	
+	/**
+	 * Nega uma solicitação de empréstimo.
+	 * @param int $id identificador do pedido
+	 * @return void
+	 */
 	public function negar($id){
 		$this->load->model('deferimento');
 		if($this->deferimento->negar($id))
@@ -93,6 +122,12 @@ class Emprestimo extends CI_Controller{
 		else exit("Erro");
 	}
 	
+	/**
+	 * Envia um e-mail de feedback para o requerente com o deferimento do seu pedido.
+	 * @param string $resposta Deferimento do pedido
+	 * @param int $id Identificador do pedido
+	 * @return void
+	 */
 	private function emailFeedback($resposta,$id){
 		$this->load->library('email');
 		$this->load->model('item');
@@ -101,19 +136,13 @@ class Emprestimo extends CI_Controller{
 		// E-mail de confirmação para o solicitante
 		$this->email->from('naoresponda@geocart.igeo.ufrj.br','GEOCART');
 		
-		/*
-		 * FIXME: cade o e-mail do cara?
-		 */
 		$to = $this->db->get_where("emprestimo_deferimento",array('formulario_emprestimo_id'=>$id))->result();
 		$to = $to[0];
 		$to = $this->db->get_where("usuario",array('cpf'=>$to->formulario_emprestimo_usuario_cpf))->result();
 		$to = $to[0];
 		$data = $to;
-		
 		$this->email->to($data->email);
-		
 		$this->email->subject('Solicitação de Empréstimo');
-		
 		switch($resposta){
 			case "deferido":
 				$message = file_get_contents('./application/views/template/email_feedback_deferido.php');
@@ -130,3 +159,5 @@ class Emprestimo extends CI_Controller{
 		echo "<script>Window.close()</script>";		
 	}
 }
+/* End of file emprestimo.php */
+/* Location: ./application/controllers/emprestimo.php */

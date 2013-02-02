@@ -1,21 +1,29 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Exibir extends CI_Controller{
+/**
+ * Controle das páginas de exibição de dados detalhados de todos os tipos de registros.
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ * 
+ */
+ class Exibir extends CI_Controller{
 	
+	/**
+	 * Verifica se o usuário possui permissão para acessar o módulo.
+	 * @return void
+	 */
 	function __construct(){
 		parent::__construct();
 		$this->usuario->is_logged();
 	}
-	
-	/*
-	 * Esta classe controla as páginas de exibição da administração de todos os cadastros.
-	 * São essas páginas que exibem os detalhes completos de cada item cadastrado na tabela de cada setor.
+
+	/**
+	 * Renderiza a página de exibição de dados de usuário.
+	 * @param string $cpf CPF do usuário
+	 * @return void
 	 */
-	
 	public function usuario($cpf){
-		/*
-		 * Carrega a página de exibição de dados de usuário. Recebe como parâmetro o CPF para realizar a busca.
-		 */
 		$this->load->model('Usuario_model','usuario');
 		$data['usuario'] 	= $this->usuario->get_user(array('cpf' => $cpf));
 		$data['title'] 		= "Exibir - Usuário";
@@ -23,10 +31,12 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Renderiza a página de exibição de dados de tipo de usuário.
+	 * @param int $id Identificador do Tipo de usuário
+	 * @return void
+	 */
 	public function permissao($id){
-		/*
-		 * Carrega a página de exibição de dados de tipo de usuário. Recebe como parâmetro o CPF para realizar a busca.
-		 */
 		$this->load->model('Nivel_usuario','nivel');
 		$data['nivel'] 	= $this->nivel->get_nivel(array('id' => $id));
 		$data['title'] 		= "Exibir - Tipo de Usuário";
@@ -34,10 +44,12 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Renderiza a página de exibição de dados de Categoria.
+	 * @param int $id Identificador da Categoria
+	 * @return void
+	 */
 	public function categoria($id){
-		/*
-		 * Carrega a página de exibição de dados de categoria. Recebe como parâmetro o ID para realizar a busca.
-		 */
 		$this->load->model('categoria');
 		$data['categoria'] 	= $this->categoria->get_categoria($id);
 		$data['title'] 		= "Exibir - Categoria";
@@ -45,6 +57,13 @@ class Exibir extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Renderiza a página de exibição de dados de mapas e cartas.
+	 * @param string $setor Categoria sob a qual o ITEM está cadastrado
+	 * @param int $id Identificador do ITEM
+	 * @param $action Ação a realizar no carregamento
+	 * @return void
+	 */
 	public function item($setor,$id,$action=''){
 		/*
 		 * Carrega a página de exibição de dados de mapas e cartas. Recebe como parâmetro o ID para realizar a busca.

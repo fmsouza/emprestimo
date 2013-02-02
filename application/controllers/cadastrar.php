@@ -1,43 +1,41 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Esta classe controla os cadastros. Realiza todas as operações de interação com as tabelas de cadastro
+ * do banco do sistema.
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ */
 class Cadastrar extends CI_Controller{
 	
+	/**
+	 * Verifica se o usuário está logado para acessar o módulo.
+	 * @return void
+	 */
 	function __construct(){
 		parent::__construct();
 		$this->usuario->is_logged();
 	}
 	
-	/*
-	 * Este é o controlador de cadastros. É responsável por realizar todas as operações de
-	 * interação com o banco de dados de cadastros do sistema.
-	 * 
-	 * */
-	
+	/**
+	 * Trata os dados do formulário de cadastro de Categoria e registra no banco.
+	 * @return void
+	 */
 	public function categoria(){
-		/*
-		 * Este método recebe os dados do formulário do cadastro de Categorias, os armazena
-		 * em $this->values e então registra no banco de dados.
-		 * 
-		 * */
 		$this->load->model('categoria'); //carrega o modelo de categoria
-		
 		$_POST['id'] = $this->categoria->gera_id($this->input->post('titulo'));
-		if($this->categoria->save($_POST))
-			$data['msg'] = "Cadastro realizado com sucesso!";
-		else
-			$data['msg'] = "Erro no cadastro. Tente novamente.";
-
+		$data['msg'] = ($this->categoria->save($_POST))? "Cadastro realizado com sucesso!":"Erro no cadastro. Tente novamente.";
 		$data['page'] = 'pages/cadastro/categorias';
 		$data['title'] = 'Cadastro - Categorias';
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Trata os dados do formulário de cadastro de Mapas e Cartas e registra no banco.
+	 * @return void
+	 */
 	public function mapas(){
-		/*
-		 * Este método recebe os dados do formulário do cadastro de Mapas e Cartas, os armazena
-		 * em $this->values e então registra no banco de dados.
-		 * 
-		 * */
 		$_POST['acervo_categoria_id'] = 'mec';
 		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/mapas';
@@ -45,12 +43,11 @@ class Cadastrar extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Trata dos dados do formulário de cadastro de Livros, Teses ou Artigos e registra no banco.
+	 * @return void
+	 */
 	public function teses(){
-		/*
-		 * Este método recebe os dados do formulário do cadastro de Teses, Livros e Artigos, os
-		 * armazena em $this->values e então registra no banco de dados.
-		 * 
-		 * */
 		$_POST['acervo_categoria_id'] = 'tlea';
 		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/teses';
@@ -58,12 +55,11 @@ class Cadastrar extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Trata os dados do formulário de registro de Equipamentos e registra no banco.
+	 * @return void
+	 */
 	public function equipamentos(){
-		/*
-		 * Este método recebe os dados do formulário do cadastro de Equipamentos, os armazena
-		 * em $this->values e então registra no banco de dados.
-		 * 
-		 * */
 		$_POST['acervo_categoria_id'] = 'equ';
 		$data['msg'] = $this->inserir_item($_POST);
 		$data['page'] = 'pages/cadastro/equipamentos';
@@ -71,13 +67,11 @@ class Cadastrar extends CI_Controller{
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Realiza o cadastro do novo item e de seu primeiro exemplar.
+	 * @return void
+	 */
 	private function inserir_item($dados){
-		/*
-		 * Como essa ação é executada igualmente em todos os métodos, há um método que a realiza e
-		 * basta chamá-lo dentro dos outros. É privado para poder ser acessado apenas através de outros
-		 * métodos dentro desta classe.
-		 * 
-		 */
 		$this->load->model('item'); //Carrega o modelo de item
 		$this->load->model('exemplar'); //Carrega o modelo de exemplar
 		$dados['keywords'] = $this->item->keywords($dados); //Gera os dados das keywords
@@ -93,24 +87,17 @@ class Cadastrar extends CI_Controller{
 			return "Erro no cadastro. Tente novamente.";
 	}
 	
+	/**
+	 * Trata os dados do formulário de cadastro de Tipos de Usuário e os registra no banco.
+	 * @return void
+	 */
 	public function permissao(){
-		/*
-		 * Este método recebe os dados do formulário do cadastro de Tipos de Usuário e então registra
-		 * no banco de dados.
-		 * 
-		 * */
 		$this->load->model('nivel_usuario','nivel'); //carrega o modelo de nível
-		
-		if($this->nivel->cadastrar($_POST))
-			$data['msg'] = "Cadastro realizado com sucesso!";
-		else
-			$data['msg'] = "Erro no cadastro. Tente novamente.";
-
+		$data['msg'] = ($this->nivel->cadastrar($_POST))?"Cadastro realizado com sucesso!":"Erro no cadastro. Tente novamente.";
 		$data['page'] = 'pages/cadastro/permissoes';
 		$data['title'] = 'Cadastro - Tipos de Usuário';
 		$this->load->view('template',$data);
 	}
 }
-
 /* End of file cadastrar.php */
 /* Location: ./application/controllers/cadastrar.php */

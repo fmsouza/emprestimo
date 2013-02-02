@@ -1,25 +1,38 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /**
- * Este é o controlador de páginas. Aqui são definidos os métodos referentes ao carregamento
- * de todas as páginas do sistema. Elas podem ser acessadas por pagina/<metodo> ou pelo endereço
- * definido em application/config/routes.php
+ * Controlador de páginas gerais do sistema
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ * 
  */
 class Pagina extends CI_Controller {
 	
-	private $setor = array(
+	/**
+	 * @property códigos referentes às categorias
+	 */
+	private $setor;
+	
+	/**
+	 * Verifica se o usuário está logado
+	 * @return void
+	 */
+	function __construct(){
+		parent::__construct();
+		$this->usuario->is_logged();
+		$this->setor = array(
 			'mapas' 		=> 'mec',
 			'teses' 		=> 'tlea',
 			'equipamentos'	=> 'equ'
-		);
-	
-	function __construct(){
-		parent::__construct();
-		$this->usuario->is_logged(); // Verifica se está logado ou não
+		); 
 	}
 
+	/**
+	 * Carrega a página inicial do sistema
+	 * @return void
+	 */
 	public function index(){
-		// Carrega a página inicial.
 		$data['title'] = "o que quiser";
 		$data['page'] = "pages/internal/pesquisa";
 		$this->load->view('template',$data);
@@ -30,6 +43,7 @@ class Pagina extends CI_Controller {
 	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
 	 * o usuário será redirecionado para a página da pesquisa que desejar. Caso contrário, será
 	 * redirecionado para a página inicial.
+	 * @return void
 	 */
 	public function pesquisa($setor){
 		$data['page']  = "pages/internal/pesquisa";
@@ -59,6 +73,7 @@ class Pagina extends CI_Controller {
 	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
 	 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
 	 * redirecionado para a página inicial.
+	 * @return void
 	 */
 	public function cadastro($setor){
 		$data['title'] = "Cadastro";
@@ -102,6 +117,7 @@ class Pagina extends CI_Controller {
 	 * Então o sistema validará a opção fornecida de acordo com seus padrões. Caso haja conformidade,
 	 * o usuário será redirecionado para a página do cadastro que desejar. Caso contrário, será
 	 * redirecionado para a página inicial.
+	 * @return void
 	 */
 	public function admin($setor,$action=''){
 		$data['title'] = "Administração";
@@ -184,6 +200,11 @@ class Pagina extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Exibe detalhes de um determinado item
+	 * @param int $id Identificador do item
+	 * @return void
+	 */
 	public function visualizar($id){
 		$this->load->model('item');
 		$row = $this->item->get_item($id);
@@ -193,10 +214,11 @@ class Pagina extends CI_Controller {
 		$this->load->view('template',$data);
 	}
 	
+	/**
+	 * Realiza a busca do sistema
+	 * @return void
+	 */
 	public function buscar(){
-		/*
-		 * Método responsável pela realização da busca
-		 */
 		if($_POST && !empty($_POST['pesquisa'])){
 			$this->load->model('item');
 			$dados = $this->prepara_dados($_POST['pesquisa']);
@@ -220,6 +242,11 @@ class Pagina extends CI_Controller {
 		else header("Location: home");
 	}
 	
+	/**
+	 * Trata os dados da busca para realizar a pesquisa
+	 * @param array $dados Dados da busca
+	 * @return array
+	 */
 	private function prepara_dados($dados){
 		/*
 		 * Esse método faz todos os tratamentos necessários para usar os dados recuperados do campo de busca
@@ -231,6 +258,11 @@ class Pagina extends CI_Controller {
 		return explode(" ",$dados);
 	}
 	
+	/**
+	 * Retorna o código da categoria
+	 * @param string $name Nome da categoria
+	 * @return string
+	 */
 	private function setor($name){
 		/*
 		 * Retorna o valor do setor na tabela
