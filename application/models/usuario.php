@@ -1,75 +1,71 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Interações com a tabela de Tipos de usuário
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ */
 class Usuario extends CI_Model{
 	
-	/*
-	 * Esse modelo é responsável por todas as interações de dados de usuários entre o
-	 * banco e o sistema.
-	 * 
-	 * */
+	/**
+	 * @property Nome da tabela
+	 */
+	private $table = 'usuario';
 	
-	private $table = 'usuario'; //tabela que contém os dados dos usuários
-	
+	/**
+	 * Cadastra um novo usuário
+	 * @return bool
+	 */
 	public function cadastrar($data){
-		/*
-		 * Esse método recebe como parâmetro os dados a serem inseridos no banco, já pareados
-		 * de acordo com as colunas da tabela em forma de array() coluna->valor e os insere
-		 * no banco. Caso os dados sejam inseridos, retorna TRUE. Caso contrário, retorna FALSE.
-		 * 
-		 * */
-		if($this->db->insert($this->table,$data))
-			return true;
-		else
-			return false;
+		return ($this->db->insert($this->table,$data))? TRUE:FALSE;
 	}
 	
+	/**
+	 * Retorna um usuário
+	 * @param array $data Identificadores do usuário
+	 * @return StdObject
+	 */
 	public function get_user($data){
-		/*
-		 * Esse método recebe como parâmetro os dados da pesquisa do usuário da forma como se
-		 * deseja buscá-lo. Padrão: pareado de acordo com as colunas do banco, nomeando como
-		 * coluna->valor. Limitado para um resultado, já que se deseja buscar um único usuário,
-		 * retorna os dados deste usuário caso ele exista e vazio caso contrário.
-		 * 
-		 * */
 		return $this->db->select("usuario.* , nivel_usuario.nome AS tipo")
 				->from("usuario, nivel_usuario")
 				->where("usuario.cpf = '{$data['cpf']}' AND usuario.nivel_usuario_id = nivel_usuario.id")
 		 		->get()->result();
 	}
 	
+	/**
+	 * Retorna todos os usuários
+	 * @return StdObject
+	 */
 	public function get(){
-		/*
-		 * Esse método retorna todos os registros encontrados na tabela configurada em $this->table.
-		 */
 		return $this->db->get($this->table);
 	}
 	
+	/**
+	 * Atualiza um usuário
+	 * @param array $data Dados alterados
+	 * @return bool
+	 */
 	public function editar($data){
-		/*
-		 * Esse método é semelhante ao cadastrar. Porém altera um registro ao invés de cadastrar um novo.
-		 */
 		$cpf = $data['cpf'];
 		unset($data['cpf']);
-		if($this->db->where('cpf',$cpf)->update($this->table,$data))
-			return true;
-		else
-			return false;
+		return ($this->db->where('cpf',$cpf)->update($this->table,$data))? TRUE:FALSE;
 	}
 	
+	/**
+	 * Apaga um usuário
+	 * @param string $cpf CPF do usuário
+	 * @return bool
+	 */
 	public function apagar($cpf){
-		/*
-		 * Exclui um registro identificado pelo parâmetro CPF na tabela configurada em $this->table.
-		 */
-		if($this->db->delete($this->table,array('cpf' => $cpf)))
-			return true;
-		else
-			return false;
+		return ($this->db->delete($this->table,array('cpf' => $cpf)))?TRUE:FALSE;
 	}
 	
+	/**
+	 * Verifica se há um usuário logado
+	 * @return void
+	 */
 	public function is_logged(){
-		/*
-		 * Redireciona o usuário para o local certo após verificar se ele está online ou não.
-		 */
 		if(!$this->logged()){
 			$data['title'] = "Login";
 			$data['page'] = "pages/login";
@@ -77,13 +73,13 @@ class Usuario extends CI_Model{
 		}
 	}
 	
+	/**
+	 * Verifica se há uma sessão de login
+	 * @return bool
+	 */
 	private function logged(){
-		/*
-		 * Verifica se o usuário está logado procurando sua sessão de login.
-		 */
 		return isset($this->session->userdata['logged']);
 	}
 }
-
 /* End of file usuario_model.php */
 /* Location: ./application/controllers/usuario_model.php */

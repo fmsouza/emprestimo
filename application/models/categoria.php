@@ -1,99 +1,90 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Interações com a tabela de categorias no banco de dados
+ * 
+ * @author Frederico Souza (fredericoamsouza@gmail.com)
+ * @copyright 2012 Frederico Souza
+ */
 class Categoria extends CI_Model{
-	/*
-	 * Esse modelo é responsável por todas as interações de dados de categoria entre o
-	 * banco e o sistema.
-	 * 
-	 * */
-	private $table = 'acervo_categoria'; //tabela que contém os dados dos usuários
+	
+	/**
+	 * @property Tabela de categoria
+	 */
+	private $table = 'acervo_categoria';
+	/**
+	 * @property Tabela filha, item do acervo
+	 */
 	private $child = 'acervo_item';
 	
+	/**
+	 * Registra nova categoria
+	 * @param array $data Array de dados que serão cadastrados
+	 * @return bool
+	 */
 	public function save($data){
-		/*
-		 * Esse método recebe como parâmetro os dados a serem inseridos no banco, já pareados
-		 * de acordo com as colunas da tabela em forma de array() coluna->valor e os insere
-		 * no banco. Caso os dados sejam inseridos, retorna TRUE. Caso contrário, retorna FALSE.
-		 * 
-		 * */
-		if($this->db->insert($this->table,$data))
-			return true;
-		else
-			return false;
+		return ($this->db->insert($this->table,$data))? TRUE:FALSE;
 	}
 	
+	/**
+	 * Altera uma categoria
+	 * @param array $data Identificador do registro
+	 * @return bool
+	 */
 	public function editar($data){
-		/*
-		 * Esse método é semelhante ao save. Porém altera um registro ao invés de cadastrar um novo.
-		 */
 		$id = $data['id'];
 		unset($data['id']);
-		if($this->db->where('id',$id)->update($this->table,$data))
-			return true;
-		else
-			return false;
+		return ($this->db->where('id',$id)->update($this->table,$data))? TRUE:FALSE;
 	}
 	
+	/**
+	 * Exclui uma categoria
+	 * @param int $id Identificador da categoria
+	 * @return bool
+	 */
 	public function apagar($id){
-		/*
-		 * Exclui um registro identificado pelo parâmetro ID na tabela configurada em $this->table.
-		 */
-		if($this->get_dependencies($id))
-			return false;
-		else{
-			if($this->db->delete($this->table,array('id' => $id)))
-				return true;
-			else
-				return false;
-		}
+		if($this->get_dependencies($id)) return FALSE;
+		else return ($this->db->delete($this->table,array('id' => $id)))? TRUE:FALSE;
 	}
 	
+	/**
+	 * Busca todas as categorias cadastradas na tabela
+	 * @return StdObject
+	 */
 	public function get(){
-		/*
-		 * Esse método retorna todos os registros encontrados na tabela configurada em $this->table.
-		 */
 		return $this->db->get($this->table);
 	}
 	
+	/**
+	 * Gera o ID da categoria
+	 * @param string $titulo Título da categoria 
+	 * @return string
+	 */
 	public function gera_id($titulo){
-		/*
-		 * Esse método recebe como parâmetro o título informado na tela de cadastro de categoria
-		 * e devole um código gerado à partir dele da seguinte maneira:
-		 * -transforma o título em array dividido pelos espaços
-		 * -se esse array tiver mais que uma posição, ele pega o primeiro caracter de cada posição
-		 * -caso contrário, pega os 3 primeiro caracteres do título fornecido e retorna o código.
-		 * 
-		 */
 		$titulo = explode(' ',$titulo);
 		$cod = '';
-		if(count($titulo)>1)
-			foreach($titulo as $parte) $cod .= substr($parte,0,1);
-		else
-			$cod .= substr($titulo[0],0,3);
+		if(count($titulo)>1) foreach($titulo as $parte) $cod .= substr($parte,0,1);
+		else $cod .= substr($titulo[0],0,3);
 		return strtolower($cod);
 	}
 	
+	/**
+	 * Busca uma categoria
+	 * @param int $id Identificador da categoria
+	 * @return StdObject
+	 */
 	public function get_categoria($id){
-		/*
-		 * Esse método recebe como parâmetro o id da categoria para que se possa buscar seus
-		 * dados na base.
-		 * 
-		 * */
-		$data['id'] = $id;
-		return $this->db->get_where($this->table,$data,1)->result();
+		return $this->db->get_where($this->table,array('id'=>$id),1)->result();
 	}
 	
+	/**
+	 * Verifica se há dados dependentes em outras tabelas
+	 * @param int $id Identificador do registro pai
+	 * @return bool
+	 */
 	private function get_dependencies($id){
-		/*
-		 * Verifica se há algum registro associado cadastrado em alguma outra tabela.
-		 * Retorna TRUE caso haja e FALSE caso contrário.
-		 */
-		if($this->db->where(array('acervo_categoria_id' => $id))->get($this->child)->num_rows() > 0)
-			return true;
-		else
-			return false;
+		return ($this->db->where(array('acervo_categoria_id' => $id))->get($this->child)->num_rows() > 0)? TRUE:FALSE;
 	}
 }
-
 /* End of file categoria.php */
 /* Location: ./application/controllers/categoria.php */
