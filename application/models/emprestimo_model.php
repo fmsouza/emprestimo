@@ -17,7 +17,7 @@ class Emprestimo_model extends CI_Model{
 	 * @ignore
 	 */
 	public function __construct(){
-		$this->$table = array(
+		$this->table = array(
 			'formulario'  => 'formulario_emprestimo',
 			'finalidade'  => 'emprestimo_finalidade',
 			'deferimento' => 'emprestimo_deferimento'

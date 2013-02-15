@@ -23,7 +23,7 @@ class Nivel_usuario extends CI_Model{
 	 * @return void
 	 */
 	public function __construct(){
-		$this->$values = array(
+		$this->values = array(
 			'nome' => '',
 			'ver_usuario' => 0,
 			'editar_usuario' => 0,
