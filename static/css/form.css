@@ -1,0 +1,59 @@
+@CHARSET "UTF-8";
+input{
+	border: 1px solid #aaa;
+}
+.button{
+	padding: 3px 10px 3px 10px;
+	border-radius: 3px;
+	background-color: #FFF;
+}
+.button:hover{
+	background-color:#C9E994;
+}
+#login{
+	width: 200px;
+}
+#login>ul{
+	list-style: none;
+}
+#login>ul>li{
+	display: inline;
+	font-size: 13px;
+}
+#login a{
+	color: #42453D;
+}
+#login a:hover{
+	color: #C9E994;
+}
+.validate{
+	color: #F00;
+	font-size: 10px;
+}
+.admin, .results{
+	width: 600px;
+	text-align: center;
+}
+.admin th, .results th{
+	background-color: #CFCFB4;
+}
+.admin tr:hover, .results tr:hover{
+	background-color: #EBEADC;
+}
+.editar th, .view th{
+	text-align: left;
+	padding-right: 10px;
+}
+.search, .searched{
+	border: 1px solid eee;
+	height: 35px;
+	width: 70%;
+	border-radius: 20px;
+	padding-left: 10px;
+	font-size: 16px;
+	color: #ccc;
+	margin-bottom: 30px;
+}
+.searched{
+	color: #888;
+}

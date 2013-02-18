@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+#menu ul, #menu #sessioname{
+	list-style: none;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
+}
+#menu li{
+	display: inline;
+	border-right: 1px solid #CFCFB4;
+	margin: 2px 10px 0 0;
+	padding: 10px 15px 10px 10px;
+	float: left;
+}
+#menu li:hover{
+	background-color: #CFCFB4;
+}
+
+#menu #sessioname{
+	margin-top: 2px;
+	padding: 10px 10px 10px 10px;
+	float: right;
+}
+
+#menu #sessioname #admin-menu{
+	border: 1px solid #A9AD94;
+	background-color: #E5E8D5;
+	font-weight: normal;
+	text-align: left;
+	width: 120px;
+	position: absolute;
+}
+#menu #sessioname #admin-menu .divider{
+	background-color: #CFCFB4;
+	font-weight: bold;
+}
+#menu #sessioname #admin-menu tr:hover{
+	background-color: #CFCFB4;
+}

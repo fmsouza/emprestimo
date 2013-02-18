@@ -1,0 +1,76 @@
+@CHARSET "UTF-8";
+*{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	color: #000;
+	text-decoration: none;
+}
+body{
+	background-color: #EBEADC;
+	font: normal 12px Verdana, Arial,Helvetica,sans-serif;
+}
+form h1{
+	margin-bottom: 20px;
+	border-bottom: 1px solid #CFCFB4;
+}
+#header, #menu, #content, #upper-footer, #footer, #copyright{ width: 940px; }
+#header{
+	background-image: url("../images/bg_header.png");
+	height: 132px;
+}
+#menu{
+	height: 40px;
+	border-bottom: 1px solid #CFCFB4;
+	background-color: #EBEADC;
+}
+#content{
+	background-color: #F5F5EF;
+	border-radius: 5px;
+	margin: 10px 0 10px 0;
+	padding: 10px 0 10px 0;
+	border: 1px solid #CFCFB4;
+}
+#footer{
+	background-image: url("../images/bg_ufrj_footer.png");
+	height: 75px;
+}
+#footer #geocart-logo{
+	background-image: url("../images/geocart_footer.png");
+	width: 159px;
+	height: 54px;
+	float: left;
+	margin: 11px 0 0 10px;
+}
+#footer span{
+	color: #FFEDBB;
+	float: right;
+	margin: 30px 15px 0 0;
+}
+#footer #ufrj-logo{
+	background-image: url("../images/ufrj_footer.png");
+	width: 55px;
+	height: 65px;
+	float: right;
+	margin: 5px 10px 0 0;
+}
+#copyright{
+	background-color: #292B26;
+	padding: 3px 0 0 0;
+	color: #FFF;
+}
+#copyright a, #copyright #title{
+	color: #9f9f9f;
+}
+#copyright a img{
+	margin-top: 5px;
+	margin-bottom: 3px;
+}
+.msg{
+	width: 300px;
+	height: 30px;
+	padding-top: 10px;
+	border-radius: 5px;
+	border: 1px solid #B8D883;
+	background-color: #C9E994;
+}
