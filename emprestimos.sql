@@ -8,7 +8,7 @@
 -- Versão do PHP: 5.4.6-1ubuntu1.1
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
+SET time_zone = "-03:00";
 
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -17,7 +17,8 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 
-CREATE SCHEMA emprestimos;
+CREATE SCHEMA IF NOT EXISTS emprestimos;
+USE esmprestimos;
 --
 -- Banco de Dados: `emprestimos`
 --
@@ -146,14 +147,15 @@ CREATE TABLE IF NOT EXISTS `nivel_usuario` (
   `apagar_acervo` tinyint(1) NOT NULL DEFAULT '0',
   `cancelar_emprestimo` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3;
 
 --
 -- Extraindo dados da tabela `nivel_usuario`
 --
 
 INSERT INTO `nivel_usuario` (`id`, `nome`, `ver_usuario`, `editar_usuario`, `ver_categoria`, `editar_categoria`, `editar_acervo`, `deferir_emprestimo`, `apagar_usuario`, `apagar_acervo`, `cancelar_emprestimo`) VALUES
-(1, 'Administrador', 1, 1, 1, 1, 1, 1, 1, 1, 1);
+(1, 'Administrador', 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'Usuário', 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
 -- --------------------------------------------------------
 
