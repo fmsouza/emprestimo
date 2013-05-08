@@ -36,8 +36,11 @@ class Login extends CI_Controller{
 	 */
 	public function auth(){
 		$user = $this->usuario->get_user($this->input->post());
-		if(empty($user))
+		if(empty($user)){
 			$data['msg'] = "Usuário ou senha inválidos.";
+			$data['page'] = "pages/login";
+			$this->load->view('template',$data);
+		}
 		else{
 			//cria a sessão e redireciona pra página inicial do usuário logado
 			$nivel = $this->nivel_usuario->get_nivel(array('id'=>$user[0]->nivel_usuario_id));

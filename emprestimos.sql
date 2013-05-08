@@ -18,7 +18,7 @@ SET time_zone = "-03:00";
 
 
 CREATE SCHEMA IF NOT EXISTS emprestimos;
-USE esmprestimos;
+USE emprestimos;
 --
 -- Banco de Dados: `emprestimos`
 --
