@@ -86,8 +86,7 @@ class Editar extends CI_Controller{
 			$_POST['keywords']	= $this->item->keywords($_POST); //Gera os dados das keywords
 			$data['msg'] 		= ($this->item->editar($_POST))? "Atualização realizado com sucesso!":"Erro no cadastro. Tente novamente.";
 			$data['title']		= "Exibir - Mapas e Cartas";
-			$data['page']		= "pages/admin/exibir/mapa";
-			$page				= 'exibir';
+			$page			= 'exibir';
 		}
 		else $page = 'editar';
 		

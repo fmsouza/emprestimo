@@ -24,7 +24,8 @@ class Exemplar extends CI_Model{
 	 * @return bool
 	 */
 	public function save_first($data){
-		$data['codigo'] = $data['acervo_categoria_id'].$data['acervo_item_id'].'-'.$this->fill_zero(1,$this->tam - strlen($data['codigo']));
+		$data['codigo'] = $data['acervo_categoria_id'].$data['acervo_item_id'].'-';
+		$data['codigo'] .= $this->fill_zero(1,$this->tam - strlen($data['codigo']));
 		$data['data_inclusao'] = date('Y-m-d');
 		unset($data['acervo_categoria_id']);
 		return ($this->db->insert($this->table,$data))? TRUE:FALSE;
