@@ -1,205 +1,221 @@
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+-- phpMyAdmin SQL Dump
+-- version 3.4.10.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tempo de Geração: 04/07/2013 às 00h30min
+-- Versão do Servidor: 5.5.31
+-- Versão do PHP: 5.3.10-1ubuntu3.6
 
-DROP SCHEMA IF EXISTS `emprestimos` ;
-CREATE SCHEMA IF NOT EXISTS `emprestimos` ;
-USE `emprestimos` ;
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "-03:00";
 
--- -----------------------------------------------------
--- Table `emprestimos`.`acervo_categoria`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`acervo_categoria` ;
+--
+-- Banco de Dados: `emprestimos`
+--
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`acervo_categoria` (
-  `id` VARCHAR(9) NOT NULL ,
-  `titulo` TEXT NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+-- --------------------------------------------------------
 
+--
+-- Estrutura da tabela `acervo_categoria`
+--
 
--- -----------------------------------------------------
--- Table `emprestimos`.`acervo_item`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`acervo_item` ;
+CREATE TABLE IF NOT EXISTS `acervo_categoria` (
+  `id` varchar(9) NOT NULL,
+  `titulo` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`acervo_item` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `acervo_categoria_id` VARCHAR(9) NOT NULL ,
-  `titulo` TEXT NOT NULL ,
-  `ano` INT(11) NOT NULL ,
-  `editora` VARCHAR(50) NULL DEFAULT NULL ,
-  `prazo` INT(11) NOT NULL ,
-  `keywords` TEXT NOT NULL ,
-  `valor` DOUBLE NULL ,
-  `patrimonio` VARCHAR(10) NULL DEFAULT NULL ,
-  `autor` VARCHAR(50) NULL DEFAULT NULL ,
-  `marca` VARCHAR(50) NULL DEFAULT NULL ,
-  `registro` VARCHAR(10) NULL DEFAULT NULL ,
-  `descricao` TEXT NOT NULL ,
-  `local_publicacao` TEXT NOT NULL ,
-  `extensao` TEXT NOT NULL ,
-  `notacao` TEXT NOT NULL ,
-  PRIMARY KEY (`id`, `acervo_categoria_id`) ,
-  INDEX `fk_acervo_item_acervo_categoria1` (`acervo_categoria_id` ASC) ,
-  CONSTRAINT `fk_acervo_item_acervo_categoria1`
-    FOREIGN KEY (`acervo_categoria_id` )
-    REFERENCES `emprestimos`.`acervo_categoria` (`id` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
+--
+-- Extraindo dados da tabela `acervo_categoria`
+--
 
+INSERT INTO `acervo_categoria` (`id`, `titulo`) VALUES
+('equ', 'Equipamentos'),
+('mec', 'Mapas e Cartas'),
+('tlea', 'Teses, Livros e Artigos');
 
--- -----------------------------------------------------
--- Table `emprestimos`.`acervo_exemplar`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`acervo_exemplar` ;
+-- --------------------------------------------------------
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`acervo_exemplar` (
-  `codigo` VARCHAR(9) NOT NULL ,
-  `data_inclusao` DATE NOT NULL ,
-  `acervo_item_id` INT(11) NOT NULL ,
-  PRIMARY KEY (`codigo`, `acervo_item_id`) ,
-  INDEX `fk_acervo_exemplar_acervo_item1` (`acervo_item_id` ASC) ,
-  CONSTRAINT `fk_acervo_exemplar_acervo_item1`
-    FOREIGN KEY (`acervo_item_id` )
-    REFERENCES `emprestimos`.`acervo_item` (`id` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+--
+-- Estrutura da tabela `acervo_exemplar`
+--
 
+CREATE TABLE IF NOT EXISTS `acervo_exemplar` (
+  `codigo` varchar(9) NOT NULL,
+  `data_inclusao` date NOT NULL,
+  `acervo_item_id` int(11) NOT NULL,
+  PRIMARY KEY (`codigo`,`acervo_item_id`),
+  KEY `fk_acervo_exemplar_acervo_item1` (`acervo_item_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- -----------------------------------------------------
--- Table `emprestimos`.`emprestimo_finalidade`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`emprestimo_finalidade` ;
+-- --------------------------------------------------------
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`emprestimo_finalidade` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `titulo` TEXT NOT NULL ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
+--
+-- Estrutura da tabela `acervo_item`
+--
 
+CREATE TABLE IF NOT EXISTS `acervo_item` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `acervo_categoria_id` varchar(9) NOT NULL,
+  `titulo` text NOT NULL,
+  `ano` int(11) NOT NULL,
+  `editora` varchar(50) DEFAULT NULL,
+  `prazo` int(11) NOT NULL,
+  `keywords` text NOT NULL,
+  `valor` double DEFAULT NULL,
+  `patrimonio` varchar(10) DEFAULT NULL,
+  `autor` varchar(50) DEFAULT NULL,
+  `marca` varchar(50) DEFAULT NULL,
+  `registro` varchar(10) DEFAULT NULL,
+  `descricao` text NOT NULL,
+  `local_publicacao` text NOT NULL,
+  `extensao` text NOT NULL,
+  `notacao` text NOT NULL,
+  `edicao` int(11) NOT NULL,
+  PRIMARY KEY (`id`,`acervo_categoria_id`),
+  KEY `fk_acervo_item_acervo_categoria1` (`acervo_categoria_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `emprestimos`.`nivel_usuario`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`nivel_usuario` ;
+--
+-- Estrutura da tabela `emprestimo_deferimento`
+--
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`nivel_usuario` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `nome` TEXT NOT NULL ,
-  `ver_usuario` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `editar_usuario` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `ver_categoria` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `editar_categoria` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `editar_acervo` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `deferir_emprestimo` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `apagar_usuario` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `apagar_acervo` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `cancelar_emprestimo` TINYINT(1) NOT NULL DEFAULT '0' ,
-  PRIMARY KEY (`id`) )
-ENGINE = InnoDB
-AUTO_INCREMENT = 3
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE IF NOT EXISTS `emprestimo_deferimento` (
+  `deferido` tinyint(1) NOT NULL DEFAULT '0',
+  `formulario_emprestimo_id` int(11) NOT NULL,
+  `formulario_emprestimo_usuario_cpf` varchar(14) NOT NULL,
+  PRIMARY KEY (`formulario_emprestimo_id`,`formulario_emprestimo_usuario_cpf`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `emprestimos`.`usuario`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`usuario` ;
+--
+-- Estrutura da tabela `emprestimo_finalidade`
+--
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`usuario` (
-  `cpf` VARCHAR(14) NOT NULL ,
-  `nivel_usuario_id` INT(11) NOT NULL DEFAULT '3' ,
-  `nome` TEXT NOT NULL ,
-  `identidade` VARCHAR(9) NOT NULL ,
-  `dre` VARCHAR(9) NULL DEFAULT NULL ,
-  `siape` VARCHAR(15) NULL DEFAULT NULL ,
-  `senha` TEXT NOT NULL ,
-  `endereco` TEXT NOT NULL ,
-  `profissao` TEXT NOT NULL ,
-  `email` TEXT NOT NULL ,
-  `email_alternativo` TEXT NULL DEFAULT NULL ,
-  `tel_fixo` VARCHAR(13) NOT NULL ,
-  `tel_comercial` VARCHAR(13) NULL DEFAULT NULL ,
-  `tel_celular` VARCHAR(13) NOT NULL ,
-  PRIMARY KEY (`cpf`, `nivel_usuario_id`) ,
-  INDEX `fk_usuario_nivel_usuario1` (`nivel_usuario_id` ASC) ,
-  CONSTRAINT `fk_usuario_nivel_usuario1`
-    FOREIGN KEY (`nivel_usuario_id` )
-    REFERENCES `emprestimos`.`nivel_usuario` (`id` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE IF NOT EXISTS `emprestimo_finalidade` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titulo` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `emprestimos`.`formulario_emprestimo`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`formulario_emprestimo` ;
+--
+-- Estrutura da tabela `formulario_emprestimo`
+--
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`formulario_emprestimo` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT ,
-  `usuario_cpf` VARCHAR(14) NOT NULL ,
-  `emprestimo_finalidade_id` INT(11) NOT NULL ,
-  `data_emprestimo` DATE NOT NULL ,
-  `data_devolucao` DATE NOT NULL ,
-  `acervo_exemplar_codigo` VARCHAR(9) NOT NULL ,
-  `devolvido` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `retirado` TINYINT(1) NOT NULL DEFAULT '0' ,
-  PRIMARY KEY (`id`, `usuario_cpf`, `emprestimo_finalidade_id`, `acervo_exemplar_codigo`) ,
-  INDEX `fk_formulario_emprestimo_emprestimo_finalidade1` (`emprestimo_finalidade_id` ASC) ,
-  INDEX `fk_formulario_emprestimo_acervo_exemplar1` (`acervo_exemplar_codigo` ASC) ,
-  INDEX `fk_formulario_emprestimo_usuario1_idx` (`usuario_cpf` ASC) ,
-  CONSTRAINT `fk_formulario_emprestimo_acervo_exemplar1`
-    FOREIGN KEY (`acervo_exemplar_codigo` )
-    REFERENCES `emprestimos`.`acervo_exemplar` (`codigo` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_formulario_emprestimo_emprestimo_finalidade1`
-    FOREIGN KEY (`emprestimo_finalidade_id` )
-    REFERENCES `emprestimos`.`emprestimo_finalidade` (`id` )
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_formulario_emprestimo_usuario1`
-    FOREIGN KEY (`usuario_cpf` )
-    REFERENCES `emprestimos`.`usuario` (`cpf` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-AUTO_INCREMENT = 1
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE IF NOT EXISTS `formulario_emprestimo` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `usuario_cpf` varchar(14) NOT NULL,
+  `emprestimo_finalidade_id` int(11) NOT NULL,
+  `data_emprestimo` date NOT NULL,
+  `data_devolucao` date NOT NULL,
+  `acervo_exemplar_codigo` varchar(9) NOT NULL,
+  `devolvido` tinyint(1) NOT NULL DEFAULT '0',
+  `retirado` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`,`usuario_cpf`,`emprestimo_finalidade_id`,`acervo_exemplar_codigo`),
+  KEY `fk_formulario_emprestimo_emprestimo_finalidade1` (`emprestimo_finalidade_id`),
+  KEY `fk_formulario_emprestimo_acervo_exemplar1` (`acervo_exemplar_codigo`),
+  KEY `fk_formulario_emprestimo_usuario1_idx` (`usuario_cpf`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
 
--- -----------------------------------------------------
--- Table `emprestimos`.`emprestimo_deferimento`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `emprestimos`.`emprestimo_deferimento` ;
+--
+-- Estrutura da tabela `nivel_usuario`
+--
 
-CREATE  TABLE IF NOT EXISTS `emprestimos`.`emprestimo_deferimento` (
-  `deferido` TINYINT(1) NOT NULL DEFAULT '0' ,
-  `formulario_emprestimo_id` INT(11) NOT NULL ,
-  `formulario_emprestimo_usuario_cpf` VARCHAR(14) NOT NULL ,
-  PRIMARY KEY (`formulario_emprestimo_id`, `formulario_emprestimo_usuario_cpf`) ,
-  CONSTRAINT `fk_emprestimo_deferimento_formulario_emprestimo1`
-    FOREIGN KEY (`formulario_emprestimo_id` , `formulario_emprestimo_usuario_cpf` )
-    REFERENCES `emprestimos`.`formulario_emprestimo` (`id` , `usuario_cpf` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
+CREATE TABLE IF NOT EXISTS `nivel_usuario` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nome` text NOT NULL,
+  `ver_usuario` tinyint(1) NOT NULL DEFAULT '0',
+  `editar_usuario` tinyint(1) NOT NULL DEFAULT '0',
+  `ver_categoria` tinyint(1) NOT NULL DEFAULT '0',
+  `editar_categoria` tinyint(1) NOT NULL DEFAULT '0',
+  `editar_acervo` tinyint(1) NOT NULL DEFAULT '0',
+  `deferir_emprestimo` tinyint(1) NOT NULL DEFAULT '0',
+  `apagar_usuario` tinyint(1) NOT NULL DEFAULT '0',
+  `apagar_acervo` tinyint(1) NOT NULL DEFAULT '0',
+  `cancelar_emprestimo` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
-USE `emprestimos` ;
+--
+-- Extraindo dados da tabela `nivel_usuario`
+--
 
+INSERT INTO `nivel_usuario` (`id`, `nome`, `ver_usuario`, `editar_usuario`, `ver_categoria`, `editar_categoria`, `editar_acervo`, `deferir_emprestimo`, `apagar_usuario`, `apagar_acervo`, `cancelar_emprestimo`) VALUES
+(1, 'Administrador', 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 'Gerente de Acervo', 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(3, 'Usuário', 0, 0, 0, 0, 0, 0, 0, 0, 0);
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `usuario`
+--
+
+CREATE TABLE IF NOT EXISTS `usuario` (
+  `cpf` varchar(14) NOT NULL,
+  `nivel_usuario_id` int(11) NOT NULL DEFAULT '3',
+  `nome` text NOT NULL,
+  `identidade` varchar(9) NOT NULL,
+  `dre` varchar(9) DEFAULT NULL,
+  `siape` varchar(15) DEFAULT NULL,
+  `senha` text NOT NULL,
+  `endereco` text NOT NULL,
+  `profissao` text NOT NULL,
+  `email` text NOT NULL,
+  `email_alternativo` text,
+  `tel_fixo` varchar(13) NOT NULL,
+  `tel_comercial` varchar(13) DEFAULT NULL,
+  `tel_celular` varchar(13) NOT NULL,
+  PRIMARY KEY (`cpf`,`nivel_usuario_id`),
+  KEY `fk_usuario_nivel_usuario1` (`nivel_usuario_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Extraindo dados da tabela `usuario`
+--
+
+INSERT INTO `usuario` (`cpf`, `nivel_usuario_id`, `nome`, `identidade`, `dre`, `siape`, `senha`, `endereco`, `profissao`, `email`, `email_alternativo`, `tel_fixo`, `tel_comercial`, `tel_celular`) VALUES
+('000.000.000-00', 1, 'Administrador', '000000000', '000000000', '', '123mudar', 'Endereço', 'Administrador', 'administrador@emprestimos.com.br', '', '(00)0000-0000', '', '(00)0000-0000');
+
+--
+-- Restrições para as tabelas dumpadas
+--
+
+--
+-- Restrições para a tabela `acervo_exemplar`
+--
+ALTER TABLE `acervo_exemplar`
+  ADD CONSTRAINT `fk_acervo_exemplar_acervo_item1` FOREIGN KEY (`acervo_item_id`) REFERENCES `acervo_item` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Restrições para a tabela `acervo_item`
+--
+ALTER TABLE `acervo_item`
+  ADD CONSTRAINT `fk_acervo_item_acervo_categoria1` FOREIGN KEY (`acervo_categoria_id`) REFERENCES `acervo_categoria` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para a tabela `emprestimo_deferimento`
+--
+ALTER TABLE `emprestimo_deferimento`
+  ADD CONSTRAINT `fk_emprestimo_deferimento_formulario_emprestimo1` FOREIGN KEY (`formulario_emprestimo_id`, `formulario_emprestimo_usuario_cpf`) REFERENCES `formulario_emprestimo` (`id`, `usuario_cpf`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para a tabela `formulario_emprestimo`
+--
+ALTER TABLE `formulario_emprestimo`
+  ADD CONSTRAINT `fk_formulario_emprestimo_acervo_exemplar1` FOREIGN KEY (`acervo_exemplar_codigo`) REFERENCES `acervo_exemplar` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_formulario_emprestimo_emprestimo_finalidade1` FOREIGN KEY (`emprestimo_finalidade_id`) REFERENCES `emprestimo_finalidade` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_formulario_emprestimo_usuario1` FOREIGN KEY (`usuario_cpf`) REFERENCES `usuario` (`cpf`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Restrições para a tabela `usuario`
+--
+ALTER TABLE `usuario`
+  ADD CONSTRAINT `fk_usuario_nivel_usuario1` FOREIGN KEY (`nivel_usuario_id`) REFERENCES `nivel_usuario` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
