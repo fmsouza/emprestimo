@@ -83,7 +83,6 @@ class Editar extends CI_Controller{
 	public function item($setor,$id){
 		$this->load->model('item');
 		if($_POST){
-			$_POST['keywords']	= $this->item->keywords($_POST); //Gera os dados das keywords
 			$data['msg'] 		= ($this->item->editar($_POST))? "Atualização realizado com sucesso!":"Erro no cadastro. Tente novamente.";
 			$data['title']		= "Exibir - Mapas e Cartas";
 			$page			= 'exibir';
@@ -91,8 +90,8 @@ class Editar extends CI_Controller{
 		else $page = 'editar';
 		
 		$data['title']			= ucfirst($page).' - '.$this->item->title_setor($setor);
-		$data['page']			= "pages/admin/".$page."/mapa";
-		$data['mapa']			= $this->item->get_item($id);
+		$data['page']			= "pages/admin/".$page."/".$setor;
+		$data[$setor]			= $this->item->get_item($id);
 		$this->load->view('template',$data);
 	}
 	

@@ -26,7 +26,7 @@
 								<td><a href="pagina/cadastro/mapas">Mapas e Cartas</a></td>
 							</tr>
 							<tr>
-								<td><a href="pagina/cadastro/teses">Teses e Artigos</a></td>
+								<td><a href="pagina/cadastro/teses">Teses, Livros e Artigos</a></td>
 							</tr>
 							<tr>
 								<td><a href="pagina/cadastro/equipamentos">Equipamentos</a></td>
@@ -64,7 +64,7 @@
 								<td><a href="pagina/admin/mapas">Mapas e Cartas</a></td>
 							</tr>
 							<tr>
-								<td><a href="pagina/admin/teses">Teses e Artigos</a></td>
+								<td><a href="pagina/admin/teses">Teses, Livros e Artigos</a></td>
 							</tr>
 							<tr>
 								<td><a href="pagina/admin/equipamentos">Equipamentos</a></td>

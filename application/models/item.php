@@ -9,17 +9,17 @@
 class Item extends CI_Model{
 	
 	/**
-	 * @property Tabela pai
+	 * @var Tabela pai
 	 */
 	private $table = 'acervo_item';
 	
 	/**
-	 * @property Tabela filha
+	 * @var Tabela filha
 	 */
 	private $child = 'acervo_exemplar';
 	
 	/**
-	 * Tabela de empréstimos
+	 * @var Tabela de empréstimos
 	 */
 	private $emprestado = 'formulario_emprestimo';
 	

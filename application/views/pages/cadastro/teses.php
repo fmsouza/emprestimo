@@ -9,16 +9,44 @@
 	
 	<table>
 		<tr>
+			<td>Autor:</td>
+			<td><input type="text" name="autor" required="" /></td>
+		</tr>
+		<tr>
 			<td>Título:</td>
 			<td><input type="text" name="titulo" /></td>
 		</tr>
 		<tr>
-			<td>Ano:</td>
-			<td><input type="text" name="ano" class="ano" /></td>
+			<td>Palavras-chave:</td>
+			<td><textarea cols="30" name="keywords" rows="5"></textarea></td>
+		</tr>
+		<tr>
+			<td>Descrição:</td>
+			<td><textarea cols="30" name="descricao" rows="5"></textarea></td>
+		</tr>
+		<tr>
+			<td>Edição:</td>
+			<td><input type="number" name="edicao" /></td>
+		</tr>
+		<tr>
+			<td>Local de publicação:</td>
+			<td><input type="text" name="local_publicacao" /></td>
 		</tr>
 		<tr>
 			<td>Editora:</td>
 			<td><input type="text" name="editora" /></td>
+		</tr>
+		<tr>
+			<td>Ano de publicação:</td>
+			<td><input type="text" name="ano" class="ano" /></td>
+		</tr>
+		<tr>
+			<td>Extensão:</td>
+			<td><input type="text" name="extensao" /></td>
+		</tr>
+		<tr>
+			<td>Notação:</td>
+			<td><input type="text" name="notacao" /></td>
 		</tr>
 		<tr>
 			<td>Prazo do empréstimo(dias):</td>
@@ -27,10 +55,6 @@
 		<tr>
 			<td>Valor(R$):</td>
 			<td><input type="text" name="valor" /></td>
-		</tr>
-		<tr>
-			<td>Autor:</td>
-			<td><input type="text" name="autor" /></td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

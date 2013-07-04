@@ -1,5 +1,5 @@
 @CHARSET "UTF-8";
-input{
+input,textarea{
 	border: 1px solid #aaa;
 }
 .button{

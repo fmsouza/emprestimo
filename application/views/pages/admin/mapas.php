@@ -15,7 +15,7 @@
 	<?php foreach($registro as $row):?>
 	<tr>
 		<td><?php echo $row->id;?></td>
-		<td><a href="exibir/mapa/<?php echo $row->id;?>"><?php echo $row->titulo;?></a></td>
+		<td><a href="exibir/item/mapa/<?php echo $row->id;?>"><?php echo $row->titulo;?></a></td>
 		<td><?php echo $row->ano;?></td>
 		<td>
 			<a href="exibir/item/mapa/<?php echo $row->id;?>"><img src="static/images/icons/view.gif" alt="exibir" title="Exibir" /></a>

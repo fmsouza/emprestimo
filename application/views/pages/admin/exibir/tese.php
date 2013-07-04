@@ -7,16 +7,44 @@
 <?php foreach($tese as $row):?>
 <table class="view">
 	<tr>
+		<th>Autor:</th>
+		<td><?php echo $row->autor; ?></td>
+	</tr>
+	<tr>
 		<th>Título:</th>
 		<td><?php echo $row->titulo; ?></td>
 	</tr>
 	<tr>
-		<th>Ano:</th>
-		<td><?php echo $row->ano; ?></td>
+		<th>Palavras-chave:</th>
+		<td><?php echo $row->keywords; ?></td>
+	</tr>
+	<tr>
+		<th>Descrição:</th>
+		<td><?php echo $row->descricao; ?></td>
+	</tr>
+	<tr>
+		<th>Edição:</th>
+		<td><?php echo $row->edicao; ?></td>
+	</tr>
+	<tr>
+		<th>Local de Publicação:</th>
+		<td><?php echo $row->local_publicacao; ?></td>
 	</tr>
 	<tr>
 		<th>Editora:</th>
 		<td><?php echo $row->editora; ?></td>
+	</tr>
+	<tr>
+		<th>Ano de publicação:</th>
+		<td><?php echo $row->ano; ?></td>
+	</tr>
+	<tr>
+		<th>Extensão:</th>
+		<td><?php echo $row->extensao; ?></td>
+	</tr>
+	<tr>
+		<th>Notação:</th>
+		<td><?php echo $row->notacao; ?></td>
 	</tr>
 	<tr>
 		<th>Prazo de empréstimo(dias):</th>
@@ -25,10 +53,6 @@
 	<tr>
 		<th>Valor(R$):</th>
 		<td><?php echo $row->valor; ?></td>
-	</tr>
-	<tr>
-		<th>Autor:</th>
-		<td><?php echo $row->autor; ?></td>
 	</tr>
 	<tr>
 		<th>N⁰ de exemplares:</th>
