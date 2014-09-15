@@ -25,7 +25,7 @@ class Apagar extends CI_Controller{
 	 */
 	public function usuario($cpf){
 		$this->load->model('Usuario_model','usuario');
-		if($this->usuario->apagar(array('cpf' => $cpf)))
+		if($this->usuario->apagar($cpf))
 			redirect("pagina/admin/usuarios");
 		else{
 			$data['msg'] = "Não foi possível apagar o registro.";
